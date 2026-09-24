@@ -130,25 +130,53 @@ int main(void) {
 :::
 
 (ej_b1_c02_03)=
-## Ejercicio 1.02.03 - Par o Impar ⭐☆☆☆☆
+### Ejercicio 1.02.03 - Determinación de Paridad ⭐☆☆☆☆
 
-Determiná si un número entero es par o impar.
+:::{exercise}
+:label: ej_b1_c02_03_paridad
 
-**Orientación:**
-- Usá el operador módulo `%`
-- Si `numero % 2 == 0`, es par
-- Considerá números negativos (funcionan igual)
+Implementá una función pura que determine si un número entero es par:
+```c
+bool es_par(int numero);
+```
 
-:::{hint} Lógica y Consideraciones
-error e informar el resultado mediante parámetros de salida.
-    especificando precondiciones y postcondiciones.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Número Entrada | Retorno Esperado | Justificación |
+| :--- | :--- | :--- | :--- |
+| Par positivo | `42` | `true` | `42 % 2 == 0` |
+| Impar positivo | `17` | `false` | `17 % 2 != 0` |
+| Cero | `0` | `true` | `0 % 2 == 0` |
+| Par negativo | `-8` | `true` | `-8 % 2 == 0` |
+| Impar negativo | `-9` | `false` | `-9 % 2 != 0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool es_par(int numero) {
+    return (numero % 2) == 0;
+}
+
+int main(void) {
+    assert(es_par(42) == true);
+    assert(es_par(17) == false);
+    assert(es_par(0) == true);
+    assert(es_par(-8) == true);
+    assert(es_par(-9) == false);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
 (ej_b1_c02_04)=
-## Ejercicio 1.02.04 - Mayor de Tres Números ⭐⭐☆☆☆
+### Ejercicio 1.02.04 - Mayor de Tres Números ⭐⭐☆☆☆
 
 Leé tres números y determiná cuál es el mayor.
 
@@ -157,33 +185,59 @@ Leé tres números y determiná cuál es el mayor.
 - Compará primero dos números, luego el mayor con el tercero
 - Considerá el caso de números iguales
 
-:::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 
 (ej_b1_c02_05)=
-## Ejercicio 1.02.05 - Año Bisiesto ⭐⭐☆☆☆
+### Ejercicio 1.02.05 - Determinación de Año Bisiesto ⭐⭐☆☆☆
 
-Determiná si un año es bisiesto.
+:::{exercise}
+:label: ej_b1_c02_05_bisiesto
 
-**Reglas:**
-- Divisible por 4: bisiesto
-- **Excepto** si es divisible por 100: no bisiesto
-- **Excepto** si es divisible por 400: bisiesto
+Implementá una función que determine si un año del calendario gregoriano es bisiesto:
+- Un año es bisiesto si es divisible por 4.
+- Excepto si es divisible por 100, salvo que también sea divisible por 400.
+- Años menores o iguales a 0 se consideran inválidos y retornan `false`.
 
-**Orientación:**
-- Usá operadores lógicos `&&` y `||`
-- Condición: `(año % 4 == 0 && año % 100 != 0) || (año % 400 == 0)`
+```c
+bool es_bisiesto(int anio);
+```
 
-:::{hint} Lógica y Consideraciones
-valores fuera de rango o tipos inválidos.
-    un lazo hasta que el usuario elija finalizar.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Año Entrada | Retorno Esperado | Regla Aplicada |
+| :--- | :--- | :--- | :--- |
+| Secundario bisiesto | `2024` | `true` | Divisible por 4 y no por 100 |
+| Fin de siglo común | `1900` | `false` | Divisible por 100 pero no por 400 |
+| Fin de siglo bisiesto | `2000` | `true` | Divisible por 400 |
+| Año común | `2023` | `false` | No divisible por 4 |
+| Año no positivo | `-4` | `false` | Rechazo por contrato |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool es_bisiesto(int anio) {
+    if (anio <= 0) {
+        return false;
+    }
+    return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+}
+
+int main(void) {
+    assert(es_bisiesto(2024) == true);
+    assert(es_bisiesto(1900) == false);
+    assert(es_bisiesto(2000) == true);
+    assert(es_bisiesto(2023) == false);
+    assert(es_bisiesto(0) == false);
+    assert(es_bisiesto(-4) == false);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

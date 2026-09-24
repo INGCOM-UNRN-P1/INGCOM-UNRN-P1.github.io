@@ -171,63 +171,86 @@ FIN PROCEDIMIENTO
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b1_c03_03)=
-### Ejercicio 1.03.03 - División egipcia ⭐⭐☆☆☆
+### Ejercicio 1.03.03 - División Egipcia por Duplicaciones ⭐⭐☆☆☆
 
-#### Descripción
-Implementar el antiguo método de división egipcio, que no requiere tablas de
-multiplicar ni operaciones de división directa. Se basa en duplicar el divisor,
-encontrar qué duplicaciones suman el dividendo y sumar los factores de
-duplicación correspondientes.
+:::{exercise}
+:label: ej_b1_c03_03_division_egipcia
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Un dividendo y un divisor.
--   **Proceso:** 
-    1.  **Tabla de Duplicación:** Crear dos columnas. La primera empieza en 1 y
-        la segunda en el `divisor`. En cada paso, duplicar el valor de la fila
-        anterior en ambas columnas. Detenerse cuando el siguiente valor en la
-        columna del divisor supere al `dividendo`.
-    2.  **Búsqueda y Suma:** Recorrer la tabla de abajo hacia arriba. Para cada
-        fila, si el valor en la columna del divisor es menor o igual al
-        `dividendo` restante, se resta ese valor del `dividendo` y se suma el
-        valor correspondiente de la primera columna al `cociente`.
--   **Salida:** El `cociente` acumulado y el `dividendo` final (que es el
-    resto).
-    filas (*row-major order*) para mejorar el uso de caché.
-    estrictamente dentro de los límites del contenedor.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá el algoritmo histórico de división egipcia utilizando duplicaciones binarias y sustracciones, sin usar el operador de división `/`:
+- `bool division_egipcia(unsigned int dividendo, unsigned int divisor, unsigned int *cociente, unsigned int *resto);`
+- Retorna `false` si `divisor == 0` o si los punteros son `NULL`.
+- Retorna `true` y carga el cociente y resto calculados.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO division_egipcia(dividendo, divisor, REF cociente, REF resto)
-VARIABLES:
-    col1, col2 (arreglos)
-    i (entero)
-INICIO
-    // 1. Crear tabla
-    col1[0] = 1, col2[0] = divisor
-    i = 0
-    MIENTRAS col2[i] <= dividendo HACER
-        i = i + 1
-        col1[i] = col1[i-1] * 2
-        col2[i] = col2[i-1] * 2
-    FIN MIENTRAS
+**Tabla de Vectores de Prueba:**
 
-    // 2. Buscar y sumar
-    cociente = 0
-    PARA j DESDE i-1 HASTA 0 CON PASO -1 HACER
-        SI col2[j] <= dividendo ENTONCES
-            dividendo = dividendo - col2[j]
-            cociente = cociente + col1[j]
-        FIN SI
-    FIN PARA
-    resto = dividendo
-FIN PROCEDIMIENTO
+| Caso de Prueba | Dividendo | Divisor | Retorno | `*cociente` | `*resto` |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Exacta | `24` | `6` | `true` | `4` | `0` |
+| Inexacta | `45` | `7` | `true` | `6` | `3` ($6 \times 7 + 3 = 45$) |
+| Menor al divisor | `5` | `12` | `true` | `0` | `5` |
+| Divisor cero | `10` | `0` | `false` | Inalterado | Inalterado |
 
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool division_egipcia(unsigned int dividendo, unsigned int divisor, unsigned int *cociente, unsigned int *resto) {
+    if (divisor == 0 || cociente == NULL || resto == NULL) {
+        return false;
+    }
+
+    if (dividendo < divisor) {
+        *cociente = 0;
+        *resto = dividendo;
+        return true;
+    }
+
+    unsigned int potencias[64];
+    unsigned int multiplos[64];
+    size_t k = 0;
+
+    potencias[0] = 1;
+    multiplos[0] = divisor;
+
+    while (multiplos[k] <= dividendo && multiplos[k] <= (dividendo >> 1)) {
+        potencias[k + 1] = potencias[k] << 1;
+        multiplos[k + 1] = multiplos[k] << 1;
+        k++;
+    }
+
+    unsigned int q = 0;
+    unsigned int r = dividendo;
+
+    for (size_t i = k + 1; i > 0; --i) {
+        size_t idx = i - 1;
+        if (multiplos[idx] <= r) {
+            r -= multiplos[idx];
+            q += potencias[idx];
+        }
+    }
+
+    *cociente = q;
+    *resto = r;
+    return true;
+}
+
+int main(void) {
+    unsigned int coc = 0;
+    unsigned int res = 0;
+
+    assert(division_egipcia(24, 6, &coc, &res) && coc == 4 && res == 0);
+    assert(division_egipcia(45, 7, &coc, &res) && coc == 6 && res == 3);
+    assert(division_egipcia(5, 12, &coc, &res) && coc == 0 && res == 5);
+    assert(!division_egipcia(10, 0, &coc, &res));
+    assert(!division_egipcia(10, 2, NULL, &res));
+
+    return 0;
+}
 ```
-<!-- {code-block} pseudocode -->
+::::
+:::
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->

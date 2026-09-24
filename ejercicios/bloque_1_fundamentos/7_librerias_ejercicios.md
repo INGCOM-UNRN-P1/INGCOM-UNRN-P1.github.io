@@ -27,12 +27,15 @@ En este bloque de ejercicios vas a diseñar módulos temáticos independientes, 
 - {ref}`capitulo-funciones-descomposicion`
 - [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Declaración de prototipos en archivos de cabecera (`.h`) y definiciones en código fuente (`.c`) ({ref}`capitulo-funciones-descomposicion`).
-2. Guardas de inclusión múltiple del preprocesador (`#ifndef`, `#define`, `#endif`).
-3. Encapsulamiento de funciones auxiliares privadas mediante el especificador `static`.
-4. Vinculación de bibliotecas matemáticas estándar con `-lm` y uso de tolerancias epsilon (`fabs(a - b) < 1e-6`) para pruebas con punto flotante.
+### Prerrequisitos y Entorno Requerido
+Para compilar y resolver los módulos de esta guía se requiere:
+1. **Entorno de compilación:** GCC 11 o superior con soporte para el estándar C11 (`-std=c11`) bajo Linux/POSIX.
+2. **Dependencias del sistema:** Biblioteca matemática de C (`libm`), enlazada explícitamente mediante el flag `-lm`.
+3. **Conceptos previos de arquitectura de software:**
+   - Separación estricta entre cabecera pública (`.h`) e implementación privada (`.c`) ({ref}`capitulo-funciones-descomposicion`).
+   - Guardas del preprocesador contra inclusión múltiple (`#ifndef LIB_H`, `#define LIB_H`, `#endif`).
+   - Visibilidad interna y ocultamiento de símbolos auxiliares con el calificador `static`.
+   - Comparación numérica con tolerancia épsilon (`fabs(a - b) < 1e-6`) para aserciones con punto flotante.
 
 ---
 
@@ -181,11 +184,77 @@ Diseñá `estadistica.h` y `estadistica.c` operando sobre arreglos de `double`:
 (ej_b1_c04b_04)=
 ### Ejercicio 1.04b.04 - Librería de Números Primos y Factorización ⭐⭐⭐☆☆
 
-Implementá la librería `primos.h` y `primos.c`:
-- `bool primo_es_primo(unsigned long n)`
-- `unsigned long primo_siguiente(unsigned long n)`
-- `size_t primo_contar_en_rango(unsigned long inicio, unsigned long fin)`
-- `void primo_factores_primos(unsigned long n, unsigned long *factores, size_t *cant)`
+:::{exercise}
+:label: ej_b1_c04b_04_primos
+
+Implementá una biblioteca para la verificación y generación de números primos con tipado estricto:
+- `bool primo_es_primo(unsigned long n)`: retorna `true` si $n$ es primo ($n \ge 2$), `false` en caso contrario.
+- `unsigned long primo_siguiente(unsigned long n)`: retorna el menor número primo estrictamente mayor que $n$.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Parámetro `n` | `primo_es_primo` | `primo_siguiente` |
+| :--- | :--- | :--- | :--- |
+| Primer primo | `2` | `true` | `3` |
+| Número compuesto | `4` | `false` | `5` |
+| Primo impar | `13` | `true` | `17` |
+| Casos límite | `0`, `1` | `false` | `2` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool primo_es_primo(unsigned long n) {
+    if (n < 2) {
+        return false;
+    }
+    if (n == 2 || n == 3) {
+        return true;
+    }
+    if (n % 2 == 0 || n % 3 == 0) {
+        return false;
+    }
+    for (unsigned long i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+unsigned long primo_siguiente(unsigned long n) {
+    if (n < 2) {
+        return 2;
+    }
+    unsigned long candidato = n + 1;
+    while (!primo_es_primo(candidato)) {
+        candidato++;
+    }
+    return candidato;
+}
+
+int main(void) {
+    assert(primo_es_primo(0) == false);
+    assert(primo_es_primo(1) == false);
+    assert(primo_es_primo(2) == true);
+    assert(primo_es_primo(3) == true);
+    assert(primo_es_primo(4) == false);
+    assert(primo_es_primo(13) == true);
+    assert(primo_es_primo(25) == false);
+
+    assert(primo_siguiente(0) == 2);
+    assert(primo_siguiente(1) == 2);
+    assert(primo_siguiente(2) == 3);
+    assert(primo_siguiente(4) == 5);
+    assert(primo_siguiente(13) == 17);
+
+    return 0;
+}
+```
+::::
+:::
 
 ---
 

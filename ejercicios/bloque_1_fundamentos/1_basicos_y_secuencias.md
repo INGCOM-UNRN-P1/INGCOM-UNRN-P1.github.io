@@ -199,55 +199,118 @@ FIN
 ## Rangos y Secuencias
 
 (ej_b1_c01_04)=
-### Ejercicio 1.01.04 - Pares en un rango ⭐⭐⭐☆☆
+### Ejercicio 1.01.04 - Pares en un rango ⭐⭐☆☆☆
 
-El programa debe ser capaz de identificar y mostrar todos los números pares que
-existen dentro de un intervalo cerrado `[n, m]`, donde los límites `n` y `m` son
-proporcionados por el usuario.
+:::{exercise}
+:label: ej_b1_c01_04_pares_rango
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Se deben leer dos números enteros, `n` (inicio del rango) y `m`
--   **Proceso:** Se utiliza un lazo `for` que recorra cada número `i` desde `n`
--   **Condición de Paridad:** Dentro del lazo, para cada número `i`, se debe verificar si `i % 2 == 0`.
--   **Salida:** Si la condición de paridad se cumple, el número `i` se imprime
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá una función que cuente cuántos números pares existen en un intervalo cerrado `[inicio, fin]`:
+- Si `inicio > fin`, la función debe intercambiar los límites o procesar el rango ordenado.
+- Retorna la cantidad de enteros pares presentes en el intervalo.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-
-ALGORITMO pares_en_rango
-ENTRADA: n, m (enteros)
-
-INICIO
-    PARA i DESDE n HASTA m HACER
-        SI i MOD 2 == 0 ENTONCES
-            ESCRIBIR i
-        FIN SI
-    FIN PARA
-FIN
-
+```c
+int contar_pares_en_rango(int inicio, int fin);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Rango `[inicio, fin]` | Retorno Esperado | Justificación |
+| :--- | :--- | :--- | :--- |
+| Rango estándar | `[1, 10]` | `5` | `2, 4, 6, 8, 10` |
+| Rango negativo | `[-4, 2]` | `4` | `-4, -2, 0, 2` |
+| Límites invertidos | `[10, 1]` | `5` | Mismo intervalo ordenado |
+| Intervalo degenerado impar | `[3, 3]` | `0` | Sin pares |
+| Intervalo degenerado par | `[4, 4]` | `1` | Solo el número 4 |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+int contar_pares_en_rango(int inicio, int fin) {
+    if (inicio > fin) {
+        int temp = inicio;
+        inicio = fin;
+        fin = temp;
+    }
+    int cuenta = 0;
+    for (int i = inicio; i <= fin; ++i) {
+        if (i % 2 == 0) {
+            cuenta++;
+        }
+    }
+    return cuenta;
+}
+
+int main(void) {
+    assert(contar_pares_en_rango(1, 10) == 5);
+    assert(contar_pares_en_rango(-4, 2) == 4);
+    assert(contar_pares_en_rango(10, 1) == 5);
+    assert(contar_pares_en_rango(3, 3) == 0);
+    assert(contar_pares_en_rango(4, 4) == 1);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
+
+---
 
 (ej_b1_c01_05)=
-### Ejercicio 1.01.05 - Primeros N Impares ⭐⭐☆☆☆
+### Ejercicio 1.01.05 - Suma de los Primeros N Impares ⭐⭐☆☆☆
 
-Este ejercicio consiste en generar una secuencia de números impares, comenzando
-desde 1, hasta alcanzar un total de $N$ términos, donde $N$ es un número
-proporcionado por el usuario.
+:::{exercise}
+:label: ej_b1_c01_05_impares
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Se debe leer un número entero $N$ que representa la cantidad de números impares a generar.
--   **Proceso:** Se puede abordar de dos maneras:
--   **Salida:** Se imprime la secuencia de los primeros $N$ números impares.
+Implementá una función que calcule la suma acumulada de los primeros $N$ números impares positivos ($1, 3, 5, \dots$):
+- Recordá la propiedad matemática: $\sum_{k=1}^N (2k-1) = N^2$.
+- Si $N \le 0$, retorna `0`.
+
+```c
+long long suma_primeros_n_impares(int n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Valor $N$ | Retorno Esperado | Propiedad $N^2$ |
+| :--- | :--- | :--- | :--- |
+| Primer término | `1` | `1` | $1^2 = 1$ |
+| Cuatro términos | `4` | `16` | $1 + 3 + 5 + 7 = 16 = 4^2$ |
+| Diez términos | `10` | `100` | $10^2 = 100$ |
+| No positivo | `0` | `0` | Retorno nulo |
+| Negativo | `-5` | `0` | Retorno nulo |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+long long suma_primeros_n_impares(int n) {
+    if (n <= 0) {
+        return 0;
+    }
+    long long suma = 0;
+    int impar_actual = 1;
+    for (int i = 0; i < n; ++i) {
+        suma += impar_actual;
+        impar_actual += 2;
+    }
+    return suma;
+}
+
+int main(void) {
+    assert(suma_primeros_n_impares(1) == 1);
+    assert(suma_primeros_n_impares(4) == 16);
+    assert(suma_primeros_n_impares(10) == 100);
+    assert(suma_primeros_n_impares(0) == 0);
+    assert(suma_primeros_n_impares(-5) == 0);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
