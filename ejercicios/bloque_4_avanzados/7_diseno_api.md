@@ -33,33 +33,65 @@ seguras y extensibles en el lenguaje C.
 (ej_b4_c10_01)=
 ### Ejercicio 4.10.01 - Crítica de Nombres ⭐⭐☆☆☆
 
-Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de
-estilo:
+:::{exercise}
+:label: ej_b4_c10_01_critica_nombres
+:enumerator: api-nombres-1
+
+Analizar los nombres de funciones de una biblioteca de procesamiento de imágenes y proponer mejoras conformes a las convenciones de estilo de cátedra y principios de diseño de APIs en C11.
 
 ```{code-block} c
 :linenos:
-// Biblioteca de procesamiento de imágenes
+// Biblioteca original deficiente
 void process(img *i);
 int calc(img *i, int x, int y);
 void update(img *i, void *d);
 int check(img *i);
 void fix(img *i);
 ```
-<!-- {code-block} c -->
 
-**Tareas:**
-1. Identificar qué está mal con cada nombre
-2. Proponer nombres descriptivos con prefijo apropiado
-3. Agregar documentación de contrato para cada función
+**Nivel de Bloom:** Nivel 4 (Análisis) y Nivel 5 (Evaluación).  
+**Conceptos requeridos:** Espacios de nombres simulados (`prefijo_modulo`), verbos rectores de acción, const-correctness y tipado estricto.  
+**Techo conceptual:** Prohibido el uso de identificadores crudos sin prefijo en símbolos exportados.
 
-:::{tip} Nombres Descriptivos
+#### Contrato y Especificación de Refactorización
+- **Prefijo unificado:** `img_` o `image_` en todas las funciones públicas.
+- **Const-correctness:** Si la función solo inspecciona el estado, el puntero debe ser `const image_t *`.
 
-Como se menciona en [claridad y expresividad](#1-claridad-y-expresividad), los
-nombres deben comunicar claramente la acción que realizan. Usar verbos
-específicos en lugar de genéricos como "process" o "update".
+#### Tabla de Correspondencia y Refactorización de la API
+
+| Firma Original | Defecto Crítico de Diseño | Firma Profesional Propuesta | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| `void process(img *i);` | Verbo vago, sin prefijo de módulo, tipo no calificado | `bool img_aplicar_filtro_grises(img_t *img);` | Comunica la transformación exacta y retorna código de éxito |
+| `int calc(img *i, int x, int y);` | Abrev. críptica, no indica qué calcula | `int img_obtener_luminancia_pixel(const img_t *img, size_t x, size_t y);` | Parámetros dimensionales no negativos y `const` en la imagen |
+| `void update(img *i, void *d);` | `void *` borra el tipado; "update" no especifica | `bool img_actualizar_paleta(img_t *img, const rgb_color_t *paleta, size_t n);` | Tipado seguro, cota de tamaño y semántica unívoca |
+| `int check(img *i);` | Tipo de retorno ambiguo (`int` vs booleano) | `bool img_es_valida(const img_t *img);` | Semántica de predicado booleano puro sobre estructura inmutable |
+| `void fix(img *i);` | Acción mágica sin especificar qué repara | `bool img_reparar_encabezado_corrupto(img_t *img);` | Verbo específico y retorno de estado para manejo de fallos |
 
 :::
-<!-- {tip} Nombres Descriptivos -->
+<!-- {exercise} -->
+
+::::{solution}
+```{code-block} c
+:linenos:
+#include <stdbool.h>
+#include <stddef.h>
+
+// Definición de tipos de soporte para la API refactorizada
+typedef struct img img_t;
+typedef struct rgb_color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} rgb_color_t;
+
+// Declaraciones públicas con prefijo coherente y const-correctness
+bool img_aplicar_filtro_grises(img_t *img);
+int  img_obtener_luminancia_pixel(const img_t *img, size_t x, size_t y);
+bool img_actualizar_paleta(img_t *img, const rgb_color_t *paleta, size_t n);
+bool img_es_valida(const img_t *img);
+bool img_reparar_encabezado_corrupto(img_t *img);
+```
+::::
 
 (ej_b4_c10_02)=
 ### Ejercicio 4.10.02 - Diseño de Prefijos ⭐⭐☆☆☆
