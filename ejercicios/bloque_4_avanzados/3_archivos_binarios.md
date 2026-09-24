@@ -510,3 +510,180 @@ int main(void)
 
 ::::
 <!-- {solution} actualizar_stock -->
+
+---
+
+(ej_b4_c04_05)=
+### Ejercicio 4.04.05 - Borrado Lógico y Auditoría de Registros Binarios ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: baja_logica_binaria
+:enumerator: binarios-5
+
+En sistemas embebidos y bases de datos transaccionales, el borrado físico de registros es costoso porque
+requiere reescribir todo el archivo. En su lugar, se utiliza el **borrado lógico** mediante una bandera de estado.
+
+Dada la siguiente estructura de registro:
+```c
+typedef struct {
+    char sku[12];
+    char nombre[32];
+    int stock;
+    float precio;
+    bool activo;
+} item_inventario_t;
+```
+
+Implementá dos funciones:
+1. `bool marcar_baja_logica(const char *ruta, size_t n)`: abre el archivo en `"rb+"`, posiciona el cursor en el registro $n$, lee el registro, actualiza `activo = false`, y lo sobrescribe in-situ.
+2. `size_t contar_registros_activos(const char *ruta)`: recorre secuencialmente el archivo en modo `"rb"` y retorna cuántos registros tienen `activo == true`. Si el archivo no existe o está vacío, retorna `0`.
+
+**Nivel de Bloom:** Nivel 4 (Análisis).  
+**Conceptos requeridos:** Modos bidireccionales `"rb+"`, `fseek` relativo al tamaño de estructura, lectura secuencial `fread`, banderas de borrado lógico.  
+**Techo conceptual:** Prohibido compactar o recrear el archivo en disco.
+
+#### Contrato de las Funciones
+- **Firma 1:** `bool marcar_baja_logica(const char *ruta, size_t n);`
+- **Firma 2:** `size_t contar_registros_activos(const char *ruta);`
+- **Precondiciones:** `ruta != NULL`.
+- **Postcondiciones:** `marcar_baja_logica` retorna `true` si el registro fue dado de baja lógicamente, `false` si no existe o falla la E/S.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Estado Inicial (3 registros activos) | Acción | Conteo de Activos Posterior | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal** | 3 registros activos | Baja de registro 1 | `2` | Modificación in-situ de bandera de estado |
+| **Borde (Primer registro)**| 2 registros activos restantes | Baja de registro 0 | `1` | Baja lógica de cabecera |
+| **Error (Fuera de Rango)**| 1 registro activo | Baja de registro 10 | `1` (sin cambios) | Rechazo seguro ante offset inválido |
+
+:::
+<!-- {exercise} -->
+
+::::{solution} baja_logica_binaria
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef struct
+{
+    char sku[12];
+    char nombre[32];
+    int stock;
+    float precio;
+    bool activo;
+} item_inventario_t;
+
+bool marcar_baja_logica(const char *ruta, size_t n)
+{
+    if (ruta == NULL)
+    {
+        return false;
+    }
+
+    FILE *archivo = fopen(ruta, "rb+");
+    if (archivo == NULL)
+    {
+        return false;
+    }
+
+    long offset = (long)(n * sizeof(item_inventario_t));
+    if (fseek(archivo, offset, SEEK_SET) != 0)
+    {
+        fclose(archivo);
+        return false;
+    }
+
+    item_inventario_t reg;
+    if (fread(&reg, sizeof(item_inventario_t), 1, archivo) != 1)
+    {
+        fclose(archivo);
+        return false;
+    }
+
+    reg.activo = false;
+
+    if (fseek(archivo, offset, SEEK_SET) != 0)
+    {
+        fclose(archivo);
+        return false;
+    }
+
+    size_t escritos = fwrite(&reg, sizeof(item_inventario_t), 1, archivo);
+    fclose(archivo);
+
+    return escritos == 1;
+}
+
+size_t contar_registros_activos(const char *ruta)
+{
+    if (ruta == NULL)
+    {
+        return 0;
+    }
+
+    FILE *archivo = fopen(ruta, "rb");
+    if (archivo == NULL)
+    {
+        return 0;
+    }
+
+    size_t total_activos = 0;
+    item_inventario_t reg;
+
+    while (fread(&reg, sizeof(item_inventario_t), 1, archivo) == 1)
+    {
+        if (reg.activo)
+        {
+            total_activos++;
+        }
+    }
+
+    fclose(archivo);
+    return total_activos;
+}
+
+int main(void)
+{
+    const char *test_path = "test_baja_logica_tmp.dat";
+
+    item_inventario_t lote[3] = {
+        {"SKU-1", "Teclado", 15, 45.0f, true},
+        {"SKU-2", "Mouse", 30, 25.0f, true},
+        {"SKU-3", "Monitor", 8, 180.0f, true}
+    };
+
+    FILE *f = fopen(test_path, "wb");
+    assert(f != NULL);
+    fwrite(lote, sizeof(item_inventario_t), 3, f);
+    fclose(f);
+
+    // Conteo inicial
+    assert(contar_registros_activos(test_path) == 3);
+
+    // Baja del registro intermedio (Mouse)
+    assert(marcar_baja_logica(test_path, 1) == true);
+    assert(contar_registros_activos(test_path) == 2);
+
+    // Baja del primer registro (Teclado)
+    assert(marcar_baja_logica(test_path, 0) == true);
+    assert(contar_registros_activos(test_path) == 1);
+
+    // Intento fuera de rango
+    assert(marcar_baja_logica(test_path, 10) == false);
+    assert(contar_registros_activos(test_path) == 1);
+
+    // Archivo inexistente
+    assert(contar_registros_activos("archivo_que_no_existe_xyz.dat") == 0);
+
+    remove(test_path);
+    return 0;
+}
+```
+
+::::
+<!-- {solution} baja_logica_binaria -->

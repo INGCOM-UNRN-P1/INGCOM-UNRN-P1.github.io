@@ -224,3 +224,105 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b2_c10_03)=
+### Ejercicio 2.10.03 - Aritmética de Números Complejos con Alias de Tipos ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: alias_numeros_complejos
+
+Definí un tipo con alias `complejo_t` para representar números complejos con componentes flotantes de doble precisión (`real` e `imag`).
+Implementá funciones puras para sumar y multiplicar dos números complejos:
+- $(a + bi) + (c + di) = (a + c) + (b + d)i$
+- $(a + bi) \times (c + di) = (ac - bd) + (ad + bc)i$
+
+```c
+typedef struct {
+    double real;
+    double imag;
+} complejo_t;
+
+complejo_t complejo_sumar(complejo_t c1, complejo_t c2);
+complejo_t complejo_multiplicar(complejo_t c1, complejo_t c2);
+```
+
+#### Contrato de las Funciones
+- **Precondiciones:** Componentes numéricas finitas.
+- **Postcondiciones:** Retornan por valor una nueva estructura `complejo_t` con el resultado exacto.
+
+#### Tabla de Vectores de Prueba
+
+| Tipo de Caso | $C_1$ | $C_2$ | Suma Esperada | Producto Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Normal** | $3 + 2i$ | $1 + 4i$ | $4 + 6i$ | $(3 - 8) + (12 + 2)i = -5 + 14i$ | Aritmética compleja estándar |
+| **Elemento Neutro**| $5 - 7i$ | $1 + 0i$ | $6 - 7i$ | $5 - 7i$ | Neutro del producto |
+| **Complejo Puro**| $0 + 1i$ | $0 + 1i$ | $0 + 2i$ | $-1 + 0i$ | Propiedad $i^2 = -1$ |
+
+:::
+
+::::{solution} alias_numeros_complejos
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <math.h>
+#include <stdbool.h>
+
+#define EPSILON 1e-9
+
+typedef struct
+{
+    double real;
+    double imag;
+} complejo_t;
+
+complejo_t complejo_sumar(complejo_t c1, complejo_t c2)
+{
+    complejo_t res;
+    res.real = c1.real + c2.real;
+    res.imag = c1.imag + c2.imag;
+    return res;
+}
+
+complejo_t complejo_multiplicar(complejo_t c1, complejo_t c2)
+{
+    complejo_t res;
+    res.real = (c1.real * c2.real) - (c1.imag * c2.imag);
+    res.imag = (c1.real * c2.imag) + (c1.imag * c2.real);
+    return res;
+}
+
+static bool son_iguales(complejo_t a, complejo_t b)
+{
+    return fabs(a.real - b.real) < EPSILON && fabs(a.imag - b.imag) < EPSILON;
+}
+
+int main(void)
+{
+    complejo_t c1 = {3.0, 2.0};
+    complejo_t c2 = {1.0, 4.0};
+
+    complejo_t suma = complejo_sumar(c1, c2);
+    assert(son_iguales(suma, (complejo_t){4.0, 6.0}));
+
+    complejo_t prod = complejo_multiplicar(c1, c2);
+    assert(son_iguales(prod, (complejo_t){-5.0, 14.0}));
+
+    // Neutro
+    complejo_t neutro = {1.0, 0.0};
+    complejo_t c3 = {5.0, -7.0};
+    assert(son_iguales(complejo_multiplicar(c3, neutro), c3));
+
+    // i * i = -1
+    complejo_t i_puro = {0.0, 1.0};
+    assert(son_iguales(complejo_multiplicar(i_puro, i_puro), (complejo_t){-1.0, 0.0}));
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} alias_numeros_complejos -->

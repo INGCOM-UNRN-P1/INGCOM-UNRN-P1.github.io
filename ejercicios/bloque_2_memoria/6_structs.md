@@ -769,3 +769,69 @@ int main(void)
 
 ::::
 <!-- {solution} arreglo_seguro_struct -->
+
+---
+
+(ej_b2_c07_08)=
+### Ejercicio 2.07.08 - Búsqueda Lineal en Arreglo de Estructuras por Clave ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b2_c07_08_busqueda_struct
+:enumerator: structs-8
+
+Definí una estructura `alumno_t` con campos `padron` (`int`) y `promedio` (`double`).
+Implementá la función:
+```c
+int buscar_alumno_por_padron(const alumno_t *alumnos, size_t n, int padron_buscado);
+```
+Retorna el índice en el arreglo donde se encuentra el primer alumno con `padron == padron_buscado`, o `-1` si no existe o el puntero es nulo.
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo Entrada | Cantidad $n$ | Padrón Buscado | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| `[{101, 8.5}, {102, 7.0}, {103, 9.2}]` | `3` | `102` | `1` |
+| `[{101, 8.5}, {102, 7.0}]` | `2` | `999` | `-1` |
+| `NULL` | `0` | `101` | `-1` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+typedef struct {
+    int padron;
+    double promedio;
+} alumno_t;
+
+int buscar_alumno_por_padron(const alumno_t *alumnos, size_t n, int padron_buscado) {
+    if (alumnos == NULL || n == 0) {
+        return -1;
+    }
+    for (size_t i = 0; i < n; ++i) {
+        if (alumnos[i].padron == padron_buscado) {
+            return (int)i;
+        }
+    }
+    return -1;
+}
+
+int main(void) {
+    alumno_t curso[3] = {
+        {101, 8.5},
+        {102, 7.0},
+        {103, 9.2}
+    };
+
+    assert(buscar_alumno_por_padron(curso, 3, 102) == 1);
+    assert(buscar_alumno_por_padron(curso, 3, 101) == 0);
+    assert(buscar_alumno_por_padron(curso, 3, 103) == 2);
+    assert(buscar_alumno_por_padron(curso, 3, 999) == -1);
+    assert(buscar_alumno_por_padron(NULL, 0, 101) == -1);
+
+    return 0;
+}
+```
+::::
+:::

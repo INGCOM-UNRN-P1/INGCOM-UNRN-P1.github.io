@@ -563,3 +563,113 @@ int main(void)
 
 ::::
 <!-- {solution} ordenar_generico -->
+
+---
+
+(ej_b4_c02_07)=
+### Ejercicio 4.02.07 - Reducción Funcional Genérica (Fold / Reduce) ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: reducir_generico
+:enumerator: punteros-adv-7
+
+Implementá una función de reducción o plegado (*fold*) genérico sobre un arreglo de datos contiguos:
+```c
+typedef void (*reductor_t)(void *acumulador, const void *elemento);
+void reducir_generico(const void *base, size_t n, size_t tam_elem,
+                      reductor_t f, void *acumulador);
+```
+La función debe recorrer los $n$ elementos de tamaño `tam_elem` y llamar a `f(acumulador, elem)`
+por cada elemento, mutando el contenido del acumulador. Probala acumulando la suma de enteros
+y calculando el valor máximo de un arreglo de flotantes (`double`).
+
+**Nivel de Bloom:** Nivel 4 (Análisis) y Nivel 5 (Evaluación).  
+**Conceptos requeridos:** Punteros genéricos `void *`, aritmética sobre `const char *`, callbacks de mutación con acumulador.  
+**Techo conceptual:** Prohibido asumir tipos de datos específicos o realizar castings a punteros no compatibles con la alineación.
+
+#### Contrato de la Función
+- **Firma:** `void reducir_generico(const void *base, size_t n, size_t tam_elem, reductor_t f, void *acumulador);`
+- **Precondiciones:** `f != NULL`, `acumulador != NULL`, `tam_elem > 0`. Si `n > 0`, `base != NULL`.
+- **Postcondiciones:** El acumulador queda con el resultado de componer iterativamente la operación `f`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Tipo de Datos | Entrada | Acumulador Inicial | Operación `f` | Acumulador Final | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Normal** | `int` | `{10, 20, 30}` | `0` | Suma de enteros | `60` | Reducción sumatoria clásica |
+| **Normal** | `double` | `{1.5, 9.2, 4.3}` | `-INFINITY` | Máximo double | `9.2` | Búsqueda de extremo con reductor |
+| **Borde (Vacío)**| `int` | `n = 0` | `100` | Suma de enteros | `100` | Arreglo vacío preserva neutro |
+
+:::
+<!-- {exercise} -->
+
+::::{solution} reducir_generico
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <math.h>
+#include <stddef.h>
+
+typedef void (*reductor_t)(void *acumulador, const void *elemento);
+
+void reducir_generico(const void *base, size_t n, size_t tam_elem,
+                      reductor_t f, void *acumulador)
+{
+    assert(f != NULL);
+    assert(acumulador != NULL);
+    assert(tam_elem > 0);
+
+    if (base == NULL || n == 0)
+    {
+        return;
+    }
+
+    const char *bytes = (const char *)base;
+    for (size_t i = 0; i < n; i++)
+    {
+        const void *elem = bytes + (i * tam_elem);
+        f(acumulador, elem);
+    }
+}
+
+static void sumar_enteros(void *acum, const void *elem)
+{
+    int *total = (int *)acum;
+    const int *val = (const int *)elem;
+    *total += *val;
+}
+
+static void maximo_doubles(void *acum, const void *elem)
+{
+    double *max_val = (double *)acum;
+    const double *val = (const double *)elem;
+    if (*val > *max_val)
+    {
+        *max_val = *val;
+    }
+}
+
+int main(void)
+{
+    int arr_int[3] = {10, 20, 30};
+    int suma = 0;
+    reducir_generico(arr_int, 3, sizeof(int), sumar_enteros, &suma);
+    assert(suma == 60);
+
+    double arr_dbl[3] = {1.5, 9.2, 4.3};
+    double maximo = -HUGE_VAL;
+    reducir_generico(arr_dbl, 3, sizeof(double), maximo_doubles, &maximo);
+    assert(maximo == 9.2);
+
+    int preservado = 100;
+    reducir_generico(NULL, 0, sizeof(int), sumar_enteros, &preservado);
+    assert(preservado == 100);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} reducir_generico -->
