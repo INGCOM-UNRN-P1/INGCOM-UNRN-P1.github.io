@@ -971,40 +971,145 @@ int main(void)
 <!-- {solution} ej_b1_c01_20_tabla_multiplicar -->
 
 (ej_b1_c01_21)=
-### Ejercicio 1.01.21 - Patrón de Asteriscos (Triángulo) ⭐⭐☆☆☆
+### Ejercicio 1.01.21 - Conjetura de Collatz y Trayectorias ⭐⭐⭐☆☆
 
-Implementar un programa que pida un número `n` e imprima un triángulo rectángulo
-de `n` filas de altura, construido con asteriscos.
+:::{exercise}
+:label: ej_b1_c01_21_collatz
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Leer un entero `n` para la altura del triángulo.
--   **Proceso:** Se necesitan dos lazos aninados.
--   **Salida:** Después de que el lazo interior complete sus iteraciones para la fila actual, imprimir un salto de línea.
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-
-ALGORITMO triangulo_asteriscos
-ENTRADA: n (entero)
-
-INICIO
-    PARA fila DESDE 1 HASTA n HACER
-        PARA columna DESDE 1 HASTA fila HACER
-            ESCRIBIR "*" SIN SALTO DE LÍNEA
-        FIN PARA
-        ESCRIBIR SALTO DE LÍNEA
-    FIN PARA
-FIN
-
+Implementá una función pura que calcule la trayectoria de la conjetura de Collatz (ó secuencia $3n + 1$) para un valor inicial $n \ge 1$:
+```c
+size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salida, size_t cap_max);
 ```
-<!-- {code-block} pseudocode -->
+
+**Reglas de transición:**
+1. Si $n$ es par: $n_{k+1} = n_k / 2$.
+2. Si $n$ es impar: $n_{k+1} = 3 n_k + 1$.
+3. La secuencia concluye al alcanzar el valor `1` (incluido).
+
+**Comportamiento del contrato:**
+- Si $n == 0$, la función retorna `0` inmediatamente.
+- Si `salida == NULL`, la función itera hasta alcanzar el `1` y retorna el total de términos de la secuencia sin escribir en memoria.
+- Si `salida != NULL`, almacena los términos generados hasta alcanzar el `1` o hasta agotar `cap_max` elementos, retornando la cantidad efectiva de términos escritos.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Lazos condicionales `while`, aritmética modular, punteros a memoria contigua, gestión defensiva de capacidades.
+
+#### Contrato de la Función
+- **Firma:** `size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salida, size_t cap_max);`
+- **Precondiciones:** `n >= 0`. Si `salida != NULL`, debe apuntar a un bloque con capacidad para al menos `cap_max` elementos de tipo `unsigned long long`.
+- **Postcondiciones:** Retorna la cantidad de términos de la secuencia calculados/almacenados. `salida` contiene los términos en orden cronológico.
+
+#### Tabla de Vectores de Prueba
+
+| Caso | $n$ inicial | `salida` | `cap_max` | Retorno | Salida Generada | Justificación |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Borde (Cero)** | `0` | `NULL` | `0` | `0` | - | $n=0$ no pertenece al dominio |
+| **Borde (Uno)** | `1` | `buf` | `10` | `1` | `{1}` | Alcanza 1 inmediatamente |
+| **Normal ($n=6$)** | `6` | `buf` | `20` | `9` | `{6, 3, 10, 5, 16, 8, 4, 2, 1}` | Trayectoria completa de 9 términos |
+| **Modo Conteo** | `6` | `NULL` | `0` | `9` | - | Conteo puro sin buffer |
+| **Capacidad Parcial** | `6` | `buf` | `4` | `4` | `{6, 3, 10, 5}` | Truncamiento defensivo por `cap_max` |
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
+
+::::{solution} ej_b1_c01_21_collatz
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salida, size_t cap_max)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+
+    if (salida == NULL)
+    {
+        size_t pasos = 1;
+        unsigned long long actual = n;
+        while (actual != 1)
+        {
+            if (actual % 2 == 0)
+            {
+                actual /= 2;
+            }
+            else
+            {
+                actual = actual * 3 + 1;
+            }
+            pasos++;
+        }
+        return pasos;
+    }
+
+    if (cap_max == 0)
+    {
+        return 0;
+    }
+
+    size_t escritos = 0;
+    unsigned long long actual = n;
+    salida[escritos++] = actual;
+
+    while (actual != 1 && escritos < cap_max)
+    {
+        if (actual % 2 == 0)
+        {
+            actual /= 2;
+        }
+        else
+        {
+            actual = actual * 3 + 1;
+        }
+        salida[escritos++] = actual;
+    }
+
+    return escritos;
+}
+
+int main(void)
+{
+    /* Caso borde: n = 0 */
+    assert(generar_secuencia_collatz(0, NULL, 0) == 0);
+
+    /* Caso borde: n = 1 */
+    unsigned long long buf_1[5];
+    size_t len_1 = generar_secuencia_collatz(1, buf_1, 5);
+    assert(len_1 == 1);
+    assert(buf_1[0] == 1);
+
+    /* Modo conteo sin buffer */
+    assert(generar_secuencia_collatz(6, NULL, 0) == 9);
+
+    /* Caso normal: n = 6 */
+    unsigned long long buf_6[20];
+    size_t len_6 = generar_secuencia_collatz(6, buf_6, 20);
+    assert(len_6 == 9);
+    assert(buf_6[0] == 6);
+    assert(buf_6[1] == 3);
+    assert(buf_6[2] == 10);
+    assert(buf_6[3] == 5);
+    assert(buf_6[4] == 16);
+    assert(buf_6[5] == 8);
+    assert(buf_6[6] == 4);
+    assert(buf_6[7] == 2);
+    assert(buf_6[8] == 1);
+
+    /* Capacidad acotada */
+    unsigned long long buf_trunc[4];
+    size_t len_trunc = generar_secuencia_collatz(6, buf_trunc, 4);
+    assert(len_trunc == 4);
+    assert(buf_trunc[0] == 6 && buf_trunc[3] == 5);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c01_21_collatz -->
 
 (ej_b1_c01_22)=
 ### Ejercicio 1.01.22 - Calculadora Básica ⭐⭐☆☆☆

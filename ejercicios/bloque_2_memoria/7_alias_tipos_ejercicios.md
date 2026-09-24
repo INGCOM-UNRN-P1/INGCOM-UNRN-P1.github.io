@@ -326,3 +326,112 @@ int main(void)
 
 ::::
 <!-- {solution} alias_numeros_complejos -->
+
+---
+
+(ej_b2_c10_04)=
+### Ejercicio 2.10.04 - Álgebra Vectorial 3D con Alias de Tipos ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: alias_vector3d_algebra
+:enumerator: alias-4
+
+En gráficos por computadora y simulaciones de física, las operaciones geométricas sobre el espacio euclidiano $\mathbb{R}^3$ se modelan mediante tipos estructurados con alias expresivos.
+
+Definí el alias de tipo:
+```c
+typedef struct {
+    double x;
+    double y;
+    double z;
+} vector3d_t;
+```
+
+Implementá las siguientes funciones de álgebra vectorial tridimensional:
+1. `double vector3d_producto_punto(vector3d_t a, vector3d_t b)`: retorna el producto escalar $\mathbf{a} \cdot \mathbf{b} = a_x b_x + a_y b_y + a_z b_z$.
+2. `vector3d_t vector3d_producto_cruz(vector3d_t a, vector3d_t b)`: retorna el producto vectorial ortogonal:
+   $$\mathbf{a} \times \mathbf{b} = (a_y b_z - a_z b_y, a_z b_x - a_x b_z, a_x b_y - a_y b_x)$$
+3. `double vector3d_norma(vector3d_t v)`: calcula la magnitud euclidiana $\|\mathbf{v}\| = \sqrt{\mathbf{v} \cdot \mathbf{v}}$.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Operación | Vector A | Vector B | Resultado Esperado | Propiedad Matemática |
+| :--- | :--- | :--- | :--- | :--- |
+| **Producto Punto** | `(1, 2, 3)` | `(4, -5, 6)` | $1\times 4 - 2\times 5 + 3\times 6 = 12.0$ | Escalar con términos mixtos |
+| **Producto Cruz Canónico**| `(1, 0, 0)` ($\mathbf{\hat{i}}$) | `(0, 1, 0)` ($\mathbf{\hat{j}}$) | `(0, 0, 1)` ($\mathbf{\hat{k}}$) | Regla de la mano derecha |
+| **Producto Cruz Paralelo**| `(2, 4, 6)` | `(1, 2, 3)` | `(0, 0, 0)` | Vectores colineales tienen producto cruz nulo |
+| **Norma Euclidiana** | `(0, 3, 4)` | N/A | $5.0$ | Triángulo rectángulo pitagórico |
+
+:::
+<!-- {exercise} alias_vector3d_algebra -->
+
+::::{solution} alias_vector3d_algebra
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#define EPSILON 1e-7
+
+typedef struct {
+    double x;
+    double y;
+    double z;
+} vector3d_t;
+
+double vector3d_producto_punto(vector3d_t a, vector3d_t b) {
+    return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
+}
+
+vector3d_t vector3d_producto_cruz(vector3d_t a, vector3d_t b) {
+    vector3d_t res;
+    res.x = (a.y * b.z) - (a.z * b.y);
+    res.y = (a.z * b.x) - (a.x * b.z);
+    res.z = (a.x * b.y) - (a.y * b.x);
+    return res;
+}
+
+double vector3d_norma(vector3d_t v) {
+    return sqrt(vector3d_producto_punto(v, v));
+}
+
+static bool vec_iguales(vector3d_t a, vector3d_t b) {
+    return fabs(a.x - b.x) < EPSILON &&
+           fabs(a.y - b.y) < EPSILON &&
+           fabs(a.z - b.z) < EPSILON;
+}
+
+int main(void) {
+    vector3d_t v1 = {1.0, 2.0, 3.0};
+    vector3d_t v2 = {4.0, -5.0, 6.0};
+
+    // 1. Producto punto
+    double dot = vector3d_producto_punto(v1, v2);
+    assert(fabs(dot - 12.0) < EPSILON);
+
+    // 2. Producto cruz i x j = k
+    vector3d_t i_hat = {1.0, 0.0, 0.0};
+    vector3d_t j_hat = {0.0, 1.0, 0.0};
+    vector3d_t k_esperado = {0.0, 0.0, 1.0};
+    assert(vec_iguales(vector3d_producto_cruz(i_hat, j_hat), k_esperado));
+
+    // 3. Vectores paralelos tienen producto cruz cero
+    vector3d_t colineal = {2.0, 4.0, 6.0};
+    vector3d_t cero = {0.0, 0.0, 0.0};
+    assert(vec_iguales(vector3d_producto_cruz(v1, colineal), cero));
+
+    // 4. Norma
+    vector3d_t v_norma = {0.0, 3.0, 4.0};
+    assert(fabs(vector3d_norma(v_norma) - 5.0) < EPSILON);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} alias_vector3d_algebra -->
+

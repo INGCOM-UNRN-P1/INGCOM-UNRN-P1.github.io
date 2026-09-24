@@ -1603,21 +1603,221 @@ int main(void) {
 ---
 
 (ej_b3_c02_17)=
-## Ejercicio 3.02.17 - TAD Diccionario (Map) ⭐⭐⭐⭐☆
+### Ejercicio 3.02.17 - TAD Diccionario Clave-Valor Asociativo ⭐⭐⭐⭐☆
 
-Implementá diccionario clave-valor (strings a enteros):
-- `diccionario_t *crear_diccionario()`
-- `bool insertar(diccionario_t *d, const char *clave, int valor)`
-- `bool obtener(const diccionario_t *d, const char *clave, int *valor)`
-- `bool actualizar(diccionario_t *d, const char *clave, int valor)`
-- `bool eliminar(diccionario_t *d, const char *clave)`
-- `bool contiene_clave(const diccionario_t *d, const char *clave)`
-- `void destruir_diccionario(diccionario_t *d)`
+:::{exercise}
+:label: ej_b3_c02_17_tad_diccionario
+:enumerator: tad-17
 
-**Orientación:**
-- Array de pares `{char *clave; int valor}`
-- Duplicá claves con `strdup` (o `malloc + strcpy`)
-- Liberá claves al eliminar/destruir
+Implementá un Tipo de Dato Abstracto (TAD) **Diccionario Asociativo** (*Map*) que mapee claves de tipo cadena de texto a valores enteros (`int`) utilizando un arreglo dinámico de pares contiguos:
+
+```c
+typedef struct diccionario diccionario_t;
+
+diccionario_t *diccionario_crear(void);
+bool diccionario_insertar(diccionario_t *d, const char *clave, int valor);
+bool diccionario_obtener(const diccionario_t *d, const char *clave, int *valor);
+bool diccionario_eliminar(diccionario_t *d, const char *clave);
+size_t diccionario_cantidad(const diccionario_t *d);
+void diccionario_destruir(diccionario_t *d);
+```
+
+**Reglas de diseño y gestión de memoria:**
+1. **Encapsulamiento e invariantes:** La estructura `diccionario` debe permanecer opaca en la implementación. Cada clave en el diccionario debe ser única.
+2. **Duplicación profunda:** Al insertar una nueva clave, el TAD debe reservar una copia profunda en el Heap utilizando asignación dinámica (`strlen + malloc + strcpy`). Está prohibido almacenar punteros superficiales suministrados por el cliente.
+3. **Actualización in-place:** Si la clave ya existe en el diccionario, `diccionario_insertar` debe sobreescribir el valor asociado sin duplicar entradas ni reinvocar asignaciones de memoria redundantes, retornando `true`.
+4. **Liberación estricta:** Al invocar `diccionario_eliminar` o `diccionario_destruir`, todas las copias de claves reservadas deben ser liberadas con `free` sin incurrir en fugas de memoria.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Secuencia de Operaciones | Clave Operada | Valor | Retorno Esperado | Cantidad Final | Justificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `diccionario_insertar` | `"alpha"` | `10` | `true` | `1` | Inserción de par clave-valor nuevo |
+| `diccionario_insertar` | `"alpha"` | `99` | `true` | `1` | Sobreescritura de valor existente |
+| `diccionario_obtener` | `"alpha"` | - | `true` (`*valor = 99`) | `1` | Recuperación exitosa de clave existente |
+| `diccionario_obtener` | `"beta"` | - | `false` | `1` | Búsqueda infructuosa de clave ausente |
+| `diccionario_eliminar` | `"alpha"` | - | `true` | `0` | Eliminación y liberación de clave |
+| `diccionario_eliminar` | `"alpha"` | - | `false` | `0` | Eliminación idempotente sobre clave ausente |
+
+:::
+
+::::{solution} ej_b3_c02_17_tad_diccionario
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+typedef struct {
+    char *clave;
+    int valor;
+} par_asociativo_t;
+
+struct diccionario {
+    par_asociativo_t *pares;
+    size_t cantidad;
+    size_t capacidad;
+};
+typedef struct diccionario diccionario_t;
+
+#define DICCIONARIO_CAPACIDAD_INICIAL 4
+
+static char *duplicar_cadena(const char *origen) {
+    if (origen == NULL) {
+        return NULL;
+    }
+    size_t len = strlen(origen);
+    char *copia = (char *)malloc(len + 1);
+    if (copia != NULL) {
+        memcpy(copia, origen, len + 1);
+    }
+    return copia;
+}
+
+diccionario_t *diccionario_crear(void) {
+    diccionario_t *d = (diccionario_t *)malloc(sizeof(diccionario_t));
+    if (d == NULL) {
+        return NULL;
+    }
+    d->pares = (par_asociativo_t *)malloc(DICCIONARIO_CAPACIDAD_INICIAL * sizeof(par_asociativo_t));
+    if (d->pares == NULL) {
+        free(d);
+        return NULL;
+    }
+    d->cantidad = 0;
+    d->capacidad = DICCIONARIO_CAPACIDAD_INICIAL;
+    return d;
+}
+
+size_t diccionario_cantidad(const diccionario_t *d) {
+    return (d != NULL) ? d->cantidad : 0;
+}
+
+bool diccionario_obtener(const diccionario_t *d, const char *clave, int *valor) {
+    if (d == NULL || clave == NULL) {
+        return false;
+    }
+    for (size_t i = 0; i < d->cantidad; i++) {
+        if (strcmp(d->pares[i].clave, clave) == 0) {
+            if (valor != NULL) {
+                *valor = d->pares[i].valor;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+bool diccionario_insertar(diccionario_t *d, const char *clave, int valor) {
+    if (d == NULL || clave == NULL) {
+        return false;
+    }
+
+    /* Caso actualización */
+    for (size_t i = 0; i < d->cantidad; i++) {
+        if (strcmp(d->pares[i].clave, clave) == 0) {
+            d->pares[i].valor = valor;
+            return true;
+        }
+    }
+
+    /* Redimensionamiento dinámico */
+    if (d->cantidad >= d->capacidad) {
+        size_t nueva_cap = d->capacidad * 2;
+        par_asociativo_t *nuevos = (par_asociativo_t *)realloc(d->pares, nueva_cap * sizeof(par_asociativo_t));
+        if (nuevos == NULL) {
+            return false;
+        }
+        d->pares = nuevos;
+        d->capacidad = nueva_cap;
+    }
+
+    char *copia_clave = duplicar_cadena(clave);
+    if (copia_clave == NULL) {
+        return false;
+    }
+
+    d->pares[d->cantidad].clave = copia_clave;
+    d->pares[d->cantidad].valor = valor;
+    d->cantidad++;
+    return true;
+}
+
+bool diccionario_eliminar(diccionario_t *d, const char *clave) {
+    if (d == NULL || clave == NULL) {
+        return false;
+    }
+
+    for (size_t i = 0; i < d->cantidad; i++) {
+        if (strcmp(d->pares[i].clave, clave) == 0) {
+            free(d->pares[i].clave);
+            /* Compactación preservando contigüidad */
+            d->pares[i] = d->pares[d->cantidad - 1];
+            d->cantidad--;
+            return true;
+        }
+    }
+    return false;
+}
+
+void diccionario_destruir(diccionario_t *d) {
+    if (d == NULL) {
+        return;
+    }
+    for (size_t i = 0; i < d->cantidad; i++) {
+        free(d->pares[i].clave);
+    }
+    free(d->pares);
+    free(d);
+}
+
+int main(void) {
+    diccionario_t *d = diccionario_crear();
+    assert(d != NULL);
+    assert(diccionario_cantidad(d) == 0);
+
+    /* Inserción y actualización */
+    assert(diccionario_insertar(d, "alpha", 10) == true);
+    assert(diccionario_cantidad(d) == 1);
+
+    int val = 0;
+    assert(diccionario_obtener(d, "alpha", &val) == true);
+    assert(val == 10);
+
+    assert(diccionario_insertar(d, "alpha", 99) == true);
+    assert(diccionario_cantidad(d) == 1);
+    assert(diccionario_obtener(d, "alpha", &val) == true);
+    assert(val == 99);
+
+    /* Clave ausente */
+    assert(diccionario_obtener(d, "beta", &val) == false);
+
+    /* Múltiples inserciones */
+    assert(diccionario_insertar(d, "beta", 20) == true);
+    assert(diccionario_insertar(d, "gamma", 30) == true);
+    assert(diccionario_insertar(d, "delta", 40) == true);
+    assert(diccionario_insertar(d, "epsilon", 50) == true);
+    assert(diccionario_cantidad(d) == 5);
+
+    /* Eliminación */
+    assert(diccionario_eliminar(d, "gamma") == true);
+    assert(diccionario_cantidad(d) == 4);
+    assert(diccionario_obtener(d, "gamma", &val) == false);
+    assert(diccionario_eliminar(d, "gamma") == false);
+
+    diccionario_destruir(d);
+    diccionario_destruir(NULL);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c02_17_tad_diccionario -->
 
 ---
 

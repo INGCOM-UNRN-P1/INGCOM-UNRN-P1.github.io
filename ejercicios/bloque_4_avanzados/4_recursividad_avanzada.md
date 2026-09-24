@@ -504,3 +504,126 @@ int main(void) {
 ::::
 <!-- {solution} conteo_subconjuntos_suma -->
 
+---
+
+(ej_b4_c07_09)=
+### Ejercicio 4.07.09 - Resolución de Laberinto con Backtracking en Grilla 2D ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: laberinto_backtracking
+:enumerator: recursividad-9
+
+El algoritmo de exploración de caminos en una grilla con obstáculos es un ejemplo clásico de **búsqueda en profundidad con retroceso (*Depth-First Search with Backtracking*)**. 
+
+Dada una grilla binaria $4 \times 4$ donde `0` representa una celda transitable y `1` representa una pared o celda bloqueada, implementá una función recursiva que determine si existe un camino continuo de celdas libres adyacentes (en 4 direcciones ortogonales) desde la celda de inicio hasta la salida:
+
+```c
+#define LAB_FILAS 4
+#define LAB_COLS 4
+
+bool laberinto_hay_camino(int lab[LAB_FILAS][LAB_COLS], int inicio_f, int inicio_c, int destino_f, int destino_c);
+```
+
+- **Condiciones de parada:**
+  - Si la celda actual está fuera de límites, es una pared (`1`) o ya fue visitada en la trayectoria actual, retorna `false`.
+  - Si la celda actual coincide con `(destino_f, destino_c)`, retorna `true`.
+- **Paso recursivo:** Marca la celda actual como visitada y explora recursivamente las 4 direcciones ortogonales (abajo, derecha, arriba, izquierda). Retorna `true` si alguna dirección conduce a la salida.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Inicio / Destino | Configuración del Laberinto | Retorno Esperado | Justificación |
+| :--- | :--- | :--- | :--- | :--- |
+| **Camino Libre** | `(0, 0) -> (3, 3)` | Paredes intermedias con paso abierto | `true` | Trayectoria continua encontrada |
+| **Sin Camino** | `(0, 0) -> (3, 3)` | Fila intermedia bloqueada por `1` | `false` | Bloqueo absoluto de trayectoria |
+| **Inicio Bloqueado**| `(0, 0) -> (3, 3)` | Celda `(0, 0) == 1` | `false` | Precondición de celda libre no cumplida |
+
+:::
+<!-- {exercise} laberinto_backtracking -->
+
+::::{solution} laberinto_backtracking
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#define LAB_FILAS 4
+#define LAB_COLS 4
+
+static bool explorar_camino_rec(int lab[LAB_FILAS][LAB_COLS], int f, int c, int dest_f, int dest_c, bool visitado[LAB_FILAS][LAB_COLS]) {
+    // 1. Verificación de límites
+    if (f < 0 || f >= LAB_FILAS || c < 0 || c >= LAB_COLS) {
+        return false;
+    }
+
+    // 2. Obstáculo o ya visitado
+    if (lab[f][c] != 0 || visitado[f][c]) {
+        return false;
+    }
+
+    // 3. Destino alcanzado
+    if (f == dest_f && c == dest_c) {
+        return true;
+    }
+
+    // 4. Marcar visita
+    visitado[f][c] = true;
+
+    // 5. Exploración recursiva ortogonal
+    if (explorar_camino_rec(lab, f + 1, c, dest_f, dest_c, visitado)) return true; // Abajo
+    if (explorar_camino_rec(lab, f, c + 1, dest_f, dest_c, visitado)) return true; // Derecha
+    if (explorar_camino_rec(lab, f - 1, c, dest_f, dest_c, visitado)) return true; // Arriba
+    if (explorar_camino_rec(lab, f, c - 1, dest_f, dest_c, visitado)) return true; // Izquierda
+
+    return false;
+}
+
+bool laberinto_hay_camino(int lab[LAB_FILAS][LAB_COLS], int inicio_f, int inicio_c, int destino_f, int destino_c) {
+    if (lab == NULL) {
+        return false;
+    }
+    bool visitado[LAB_FILAS][LAB_COLS] = {{false}};
+    return explorar_camino_rec(lab, inicio_f, inicio_c, destino_f, destino_c, visitado);
+}
+
+int main(void) {
+    // Laberinto con camino viable de (0,0) a (3,3)
+    int lab1[LAB_FILAS][LAB_COLS] = {
+        {0, 1, 0, 0},
+        {0, 1, 0, 1},
+        {0, 0, 0, 1},
+        {1, 1, 0, 0}
+    };
+    assert(laberinto_hay_camino(lab1, 0, 0, 3, 3) == true);
+
+    // Laberinto completamente bloqueado en fila 1
+    int lab_bloqueado[LAB_FILAS][LAB_COLS] = {
+        {0, 0, 0, 0},
+        {1, 1, 1, 1},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+    assert(laberinto_hay_camino(lab_bloqueado, 0, 0, 3, 3) == false);
+
+    // Inicio sobre una pared
+    int lab_inicio_pared[LAB_FILAS][LAB_COLS] = {
+        {1, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+    assert(laberinto_hay_camino(lab_inicio_pared, 0, 0, 3, 3) == false);
+
+    // Destino inmediato
+    assert(laberinto_hay_camino(lab1, 0, 0, 0, 0) == true);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} laberinto_backtracking -->
+
+

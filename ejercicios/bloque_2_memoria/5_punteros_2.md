@@ -485,11 +485,181 @@ mismo usando la notación `matriz[i][j]`.
 ## Optimización y Casos Prácticos
 
 (ej_b2_c06_10)=
-### Ejercicio 2.06.10 - Vector Redimensionable con Crecimiento ⭐⭐☆☆☆
+### Ejercicio 2.06.10 - Vector Dinámico Redimensionable con Crecimiento Seguro ⭐⭐⭐☆☆
 
-Implementar un vector dinámico de enteros que duplique su capacidad
-automáticamente al llenarse, asegurando un manejo correcto del valor de retorno
-de `realloc` mediante un puntero intermedio temporal.
+:::{exercise}
+:label: ej_b2_c06_10_vector_dinamico
+:enumerator: punteros2-10
+
+Implementá una estructura de datos `vector_dinamico_t` que gestione un búfer continuo de enteros en el Heap, duplicando su capacidad de manera segura cuando se sature:
+
+```c
+typedef struct {
+    int *datos;
+    size_t cantidad;
+    size_t capacidad;
+} vector_dinamico_t;
+
+vector_dinamico_t *vector_crear(size_t capacidad_inicial);
+bool vector_agregar(vector_dinamico_t *v, int elemento);
+bool vector_obtener(const vector_dinamico_t *v, size_t indice, int *salida);
+void vector_destruir(vector_dinamico_t *v);
+```
+
+**Reglas de gestión de memoria y contratos:**
+1. **Inicialización:** `vector_crear` debe asignar tanto la cabecera como el búfer subyacente. Si `capacidad_inicial == 0`, se asigna por defecto una capacidad inicial mínima de 4 elementos.
+2. **Crecimiento geométrico seguro:** Cuando `cantidad == capacidad`, `vector_agregar` debe redimensionar al doble (`capacidad * 2`) usando obligatoriamente un puntero temporal intermedio para capturar el retorno de `realloc`. Si `realloc` falla, el vector debe conservar sus datos previos intactos y retornar `false`.
+3. **Acceso indexado:** `vector_obtener` debe verificar que `indice < cantidad`. Si es válido, almacena el valor en `*salida` y retorna `true`; ante accesos fuera de rango o punteros nulos, retorna `false`.
+4. **Destrucción limpia:** `vector_destruir` debe liberar el búfer `datos` y luego la estructura principal, tolerando llamadas defensivas con `NULL`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Operación / Secuencia | Estado Inicial $(N / C)$ | Elemento | Retorno | Estado Final $(N / C)$ | Justificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `vector_crear(2)` | - | - | Válido | `0 / 2` | Reserva inicial de 2 slots |
+| `vector_agregar(10)` | `0 / 2` | `10` | `true` | `1 / 2` | Inserción sin reasignación |
+| `vector_agregar(20)` | `1 / 2` | `20` | `true` | `2 / 2` | Saturación del búfer inicial |
+| `vector_agregar(30)` | `2 / 2` | `30` | `true` | `3 / 4` | Crecimiento geométrico al doble |
+| `vector_obtener(1)` | `3 / 4` | `idx=1` | `true` (`*salida=20`) | Inalterado | Lectura indexada válida |
+| `vector_obtener(5)` | `3 / 4` | `idx=5` | `false` | Inalterado | Rechazo defensivo fuera de rango |
+
+:::
+
+::::{solution} ej_b2_c06_10_vector_dinamico
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct {
+    int *datos;
+    size_t cantidad;
+    size_t capacidad;
+} vector_dinamico_t;
+
+#define VECTOR_CAPACIDAD_DEFECTO 4
+
+vector_dinamico_t *vector_crear(size_t capacidad_inicial)
+{
+    if (capacidad_inicial == 0)
+    {
+        capacidad_inicial = VECTOR_CAPACIDAD_DEFECTO;
+    }
+
+    vector_dinamico_t *v = (vector_dinamico_t *)malloc(sizeof(vector_dinamico_t));
+    if (v == NULL)
+    {
+        return NULL;
+    }
+
+    v->datos = (int *)malloc(capacidad_inicial * sizeof(int));
+    if (v->datos == NULL)
+    {
+        free(v);
+        return NULL;
+    }
+
+    v->cantidad = 0;
+    v->capacidad = capacidad_inicial;
+    return v;
+}
+
+bool vector_agregar(vector_dinamico_t *v, int elemento)
+{
+    if (v == NULL)
+    {
+        return false;
+    }
+
+    if (v->cantidad >= v->capacidad)
+    {
+        size_t nueva_cap = v->capacidad * 2;
+        int *temporal = (int *)realloc(v->datos, nueva_cap * sizeof(int));
+        if (temporal == NULL)
+        {
+            return false;
+        }
+        v->datos = temporal;
+        v->capacidad = nueva_cap;
+    }
+
+    v->datos[v->cantidad++] = elemento;
+    return true;
+}
+
+bool vector_obtener(const vector_dinamico_t *v, size_t indice, int *salida)
+{
+    if (v == NULL || salida == NULL || indice >= v->cantidad)
+    {
+        return false;
+    }
+
+    *salida = v->datos[indice];
+    return true;
+}
+
+void vector_destruir(vector_dinamico_t *v)
+{
+    if (v == NULL)
+    {
+        return;
+    }
+
+    free(v->datos);
+    free(v);
+}
+
+int main(void)
+{
+    vector_dinamico_t *v = vector_crear(2);
+    assert(v != NULL);
+    assert(v->cantidad == 0);
+    assert(v->capacidad == 2);
+
+    /* Inserciones y crecimiento */
+    assert(vector_agregar(v, 10) == true);
+    assert(vector_agregar(v, 20) == true);
+    assert(v->cantidad == 2 && v->capacidad == 2);
+
+    /* Forzar realloc a 4 */
+    assert(vector_agregar(v, 30) == true);
+    assert(v->cantidad == 3 && v->capacidad == 4);
+
+    /* Lecturas indexadas */
+    int leido = 0;
+    assert(vector_obtener(v, 0, &leido) == true && leido == 10);
+    assert(vector_obtener(v, 1, &leido) == true && leido == 20);
+    assert(vector_obtener(v, 2, &leido) == true && leido == 30);
+
+    /* Fuera de rango */
+    assert(vector_obtener(v, 3, &leido) == false);
+    assert(vector_obtener(v, 99, &leido) == false);
+    assert(vector_obtener(v, 0, NULL) == false);
+
+    /* Crecimiento continuo */
+    assert(vector_agregar(v, 40) == true);
+    assert(vector_agregar(v, 50) == true);
+    assert(v->cantidad == 5 && v->capacidad == 8);
+
+    vector_destruir(v);
+    vector_destruir(NULL);
+
+    /* Capacidad inicial 0 -> defecto */
+    vector_dinamico_t *v_def = vector_crear(0);
+    assert(v_def != NULL && v_def->capacidad == VECTOR_CAPACIDAD_DEFECTO);
+    vector_destruir(v_def);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b2_c06_10_vector_dinamico -->
+
 
 (ej_b2_c06_11)=
 ### Ejercicio 2.06.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆

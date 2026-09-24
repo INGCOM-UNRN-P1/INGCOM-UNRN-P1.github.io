@@ -1588,49 +1588,86 @@ FIN FUNCION
 ## Cadenas y Algoritmos
 
 (ej_b2_c03b_32)=
-### Ejercicio 2.03b.32 - b.32 - Distancia de Hamming ⭐⭐☆☆☆
+### Ejercicio 2.03b.32 - Distancia de Hamming entre Cadenas ⭐⭐☆☆☆
 
-#### Descripción
-Implementar una función que calcule la distancia de Hamming entre dos cadenas de
-igual longitud. Esta distancia es el número de posiciones en las que los
-caracteres correspondientes son diferentes.
+:::{exercise}
+:label: ej_b2_c03b_32_hamming
+:enumerator: cadenas-32
 
-:::{tip} Lógica y Consideraciones
+La distancia de Hamming entre dos cadenas de igual longitud es el número de posiciones en las cuales los caracteres correspondientes son distintos. Es ampliamente utilizada en teoría de códigos correctores y bioinformática.
 
--   **Precondición:** Las cadenas deben tener la misma longitud.
--   **Proceso:**
-    1.  Inicializar un `contador` en 0.
-    2.  Recorrer ambas cadenas simultáneamente con un lazo `for`.
-    3.  En cada posición `i`, si `cadena1[i] != cadena2[i]`, incrementar el
-        `contador`.
-
-:::
-<!-- {tip} Lógica y Consideraciones -->
-
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-FUNCION distancia_hamming(cadena1, cadena2)
-VARIABLES:
-    distancia (entero)
-INICIO
-    SI LONGITUD(cadena1) != LONGITUD(cadena2) RETORNAR -1 // Error
-
-    distancia = 0
-    PARA i DESDE 0 HASTA LONGITUD(cadena1)-1 HACER
-        SI cadena1[i] != cadena2[i] ENTONCES
-            distancia++
-        FIN SI
-    FIN PARA
-    RETORNAR distancia
-FIN FUNCION
-
+Implementá la función:
+```c
+long calcular_distancia_hamming(const char *s1, const char *s2);
 ```
-<!-- {code-block} pseudocode -->
 
+- **Precondiciones:** `s1 != NULL`, `s2 != NULL`.
+- **Comportamiento:** Si las cadenas difieren en longitud o si algún puntero es `NULL`, la función debe retornar `-1` como señal de error. Si son de idéntica longitud, retorna el total de discrepancias posicionales ($0 \le d \le longitud$).
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Cadena 1 (`s1`) | Cadena 2 (`s2`) | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cadenas Idénticas** | `"karolin"` | `"karolin"` | `0` | Cero diferencias |
+| **Diferencias Múltiples**| `"karolin"` | `"kathrin"` | `3` | Diferencias en 'r'/'t', 'o'/'h', 'l'/'r' |
+| **Discrepancia Total** | `"1011101"` | `"0100010"` | `7` | Todos los bits complementarios |
+| **Longitudes Distintas** | `"hola"` | `"mundo!"` | `-1` | Longitud no coincidente |
+| **Puntero Nulo** | `NULL` | `"test"` | `-1` | Manejo defensivo |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+long calcular_distancia_hamming(const char *s1, const char *s2) {
+    if (s1 == NULL || s2 == NULL) {
+        return -1;
+    }
+
+    size_t len1 = strlen(s1);
+    size_t len2 = strlen(s2);
+
+    if (len1 != len2) {
+        return -1;
+    }
+
+    long distancia = 0;
+    for (size_t i = 0; i < len1; i++) {
+        if (s1[i] != s2[i]) {
+            distancia++;
+        }
+    }
+
+    return distancia;
+}
+
+int main(void) {
+    // Caso idénticas
+    assert(calcular_distancia_hamming("karolin", "karolin") == 0);
+
+    // Caso 3 diferencias
+    assert(calcular_distancia_hamming("karolin", "kathrin") == 3);
+
+    // Caso 100% diferentes
+    assert(calcular_distancia_hamming("1011101", "0100010") == 7);
+
+    // Cadenas vacías (longitud 0)
+    assert(calcular_distancia_hamming("", "") == 0);
+
+    // Longitudes desiguales
+    assert(calcular_distancia_hamming("hola", "mundo!") == -1);
+    assert(calcular_distancia_hamming("abc", "ab") == -1);
+
+    // Punteros nulos
+    assert(calcular_distancia_hamming(NULL, "abc") == -1);
+    assert(calcular_distancia_hamming("abc", NULL) == -1);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03b_33)=
 ### Ejercicio 2.03b.33 - b.33 - Subsecuencia común más larga (LCS) ⭐⭐☆☆☆

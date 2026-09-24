@@ -379,30 +379,116 @@ int main(void)
 ---
 
 (ej_b1_c02_07)=
-## Ejercicio 1.02.07 - Calculadora con Menú ⭐⭐⭐☆☆
+### Ejercicio 1.02.07 - Despachador de Operaciones Aritméticas con Validación de Dominio ⭐⭐⭐☆☆
 
-Implementá una calculadora que muestre un menú y ejecute la operación elegida.
+:::{exercise}
+:label: ej_b1_c02_07_calculadora
+:enumerator: gradual-7
 
-**Menú:**
+Implementá una función despachadora de operaciones aritméticas basada en bifurcación `switch` que desacople la lógica de cómputo respecto a la entrada/salida y controle defensivamente las indeterminaciones matemáticas (división por cero):
 
-:::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+```c
+typedef enum {
+    OP_SUMAR = 1,
+    OP_RESTAR = 2,
+    OP_MULTIPLICAR = 3,
+    OP_DIVIDIR = 4
+} operacion_calc_t;
+
+bool ejecutar_operacion_aritmetica(operacion_calc_t op, double a, double b, double *resultado);
+```
+
+- **Precondiciones:** `resultado != NULL`.
+- **Postcondiciones:** Escribe el valor calculado en `*resultado` y retorna `true`. Si la operación es desconocida o si se intenta dividir por cero (`b == 0.0`), la función debe retornar `false` sin modificar `*resultado`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Operación | Operandos ($a, b$) | Retorno Esperado | Valor en `*resultado` |
+| :--- | :--- | :--- | :--- | :--- |
+| **Suma** | `OP_SUMAR` (1) | `10.5, 4.5` | `true` | `15.0` |
+| **Resta** | `OP_RESTAR` (2) | `20.0, 7.0` | `true` | `13.0` |
+| **Multiplicación** | `OP_MULTIPLICAR` (3) | `3.0, -4.0` | `true` | `-12.0` |
+| **División Válida** | `OP_DIVIDIR` (4) | `25.0, 5.0` | `true` | `5.0` |
+| **División por Cero**| `OP_DIVIDIR` (4) | `10.0, 0.0` | `false` | Inalterado |
+| **Op Desconocida** | `(operacion_calc_t)99` | `1.0, 1.0` | `false` | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+typedef enum {
+    OP_SUMAR = 1,
+    OP_RESTAR = 2,
+    OP_MULTIPLICAR = 3,
+    OP_DIVIDIR = 4
+} operacion_calc_t;
+
+bool ejecutar_operacion_aritmetica(operacion_calc_t op, double a, double b, double *resultado) {
+    if (resultado == NULL) {
+        return false;
+    }
+
+    switch (op) {
+        case OP_SUMAR:
+            *resultado = a + b;
+            return true;
+        case OP_RESTAR:
+            *resultado = a - b;
+            return true;
+        case OP_MULTIPLICAR:
+            *resultado = a * b;
+            return true;
+        case OP_DIVIDIR:
+            if (fabs(b) < EPSILON) {
+                return false;
+            }
+            *resultado = a / b;
+            return true;
+        default:
+            return false;
+    }
+}
+
+int main(void) {
+    double res = 0.0;
+
+    // Suma
+    assert(ejecutar_operacion_aritmetica(OP_SUMAR, 10.5, 4.5, &res) == true);
+    assert(fabs(res - 15.0) < EPSILON);
+
+    // Resta
+    assert(ejecutar_operacion_aritmetica(OP_RESTAR, 20.0, 7.0, &res) == true);
+    assert(fabs(res - 13.0) < EPSILON);
+
+    // Multiplicación
+    assert(ejecutar_operacion_aritmetica(OP_MULTIPLICAR, 3.0, -4.0, &res) == true);
+    assert(fabs(res - (-12.0)) < EPSILON);
+
+    // División válida
+    assert(ejecutar_operacion_aritmetica(OP_DIVIDIR, 25.0, 5.0, &res) == true);
+    assert(fabs(res - 5.0) < EPSILON);
+
+    // División por cero
+    res = 42.0;
+    assert(ejecutar_operacion_aritmetica(OP_DIVIDIR, 10.0, 0.0, &res) == false);
+    assert(fabs(res - 42.0) < EPSILON); // Inalterado
+
+    // Operación inválida
+    assert(ejecutar_operacion_aritmetica((operacion_calc_t)99, 1.0, 1.0, &res) == false);
+
+    // Puntero nulo
+    assert(ejecutar_operacion_aritmetica(OP_SUMAR, 1.0, 1.0, NULL) == false);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-```
-1. Sumar
-2. Restar
-3. Multiplicar
-4. Dividir
-5. Salir
-```
-
-**Orientación:**
-- Usá `switch` para el menú
-- Verificá división por cero
-- Permití múltiples operaciones (lazo)
 
 ---
 

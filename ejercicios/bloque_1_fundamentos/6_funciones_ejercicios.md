@@ -564,3 +564,145 @@ int main(void)
 
 ::::
 <!-- {solution} funcion_mcd_euclides -->
+
+---
+
+(ej_b1_c04_09)=
+### Ejercicio 1.04.09 - Resolución de Ecuación Cuadrática y Discriminante ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: funcion_resolver_cuadratica
+:enumerator: funciones-9
+
+Implementá una función pura que determine las raíces reales de una ecuación cuadrática de la forma $ax^2 + bx + c = 0$ comunicando los resultados mediante punteros y clasificando el tipo de solución:
+
+```c
+typedef enum {
+    CUADRATICA_DEGENERADA,
+    CUADRATICA_SIN_REALES,
+    CUADRATICA_RAIZ_DOBLE,
+    CUADRATICA_DOS_REALES
+} tipo_solucion_t;
+
+tipo_solucion_t resolver_cuadratica(double a, double b, double c, double *x1, double *x2);
+```
+
+**Reglas de cálculo y estabilidad numérica:**
+1. Si $|a| < 10^{-9}$, la ecuación no es estrictamente cuadrática; la función debe retornar `CUADRATICA_DEGENERADA` sin calcular raíces de segundo orden.
+2. Se calcula el discriminante $\Delta = b^2 - 4ac$.
+   - Si $\Delta < -10^{-9}$: no existen soluciones en el cuerpo real $\mathbb{R}$. Retorna `CUADRATICA_SIN_REALES`.
+   - Si $|\Delta| \le 10^{-9}$: existe una raíz doble real en $x = -b / (2a)$. Asigna dicho valor a `*x1` y `*x2` y retorna `CUADRATICA_RAIZ_DOBLE`.
+   - Si $\Delta > 10^{-9}$: existen dos raíces reales distintas calculadas mediante la fórmula resolvente $x = \frac{-b \pm \sqrt{\Delta}}{2a}$. Asigna a `*x1` la menor y a `*x2` la mayor, retornando `CUADRATICA_DOS_REALES`.
+3. Si los punteros de salida `x1` o `x2` son nulos, la función debe limitarse a clasificar el tipo de solución sin provocar accesos indebidos de memoria.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Coeficientes $(a, b, c)$ | Clasificación Esperada | Raíces $(x_1, x_2)$ | Justificación Matemática |
+| :--- | :--- | :--- | :--- |
+| `0.0, 3.0, -6.0` | `CUADRATICA_DEGENERADA` | Sin modificar | Coeficiente principal nulo (lineal) |
+| `1.0, 0.0, 1.0` | `CUADRATICA_SIN_REALES` | Sin modificar | $\Delta = -4 < 0$ (raíces complejas) |
+| `1.0, -4.0, 4.0` | `CUADRATICA_RAIZ_DOBLE` | `x1 = 2.0, x2 = 2.0` | $\Delta = 0$ (trinomio cuadrado perfecto) |
+| `1.0, -5.0, 6.0` | `CUADRATICA_DOS_REALES` | `x1 = 2.0, x2 = 3.0` | $\Delta = 1 > 0 \implies (x-2)(x-3) = 0$ |
+
+:::
+
+::::{solution} funcion_resolver_cuadratica
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <math.h>
+#include <stddef.h>
+
+typedef enum {
+    CUADRATICA_DEGENERADA,
+    CUADRATICA_SIN_REALES,
+    CUADRATICA_RAIZ_DOBLE,
+    CUADRATICA_DOS_REALES
+} tipo_solucion_t;
+
+tipo_solucion_t resolver_cuadratica(double a, double b, double c, double *x1, double *x2)
+{
+    const double EPSILON = 1e-9;
+
+    if (fabs(a) < EPSILON)
+    {
+        return CUADRATICA_DEGENERADA;
+    }
+
+    double discriminante = (b * b) - (4.0 * a * c);
+
+    if (discriminante < -EPSILON)
+    {
+        return CUADRATICA_SIN_REALES;
+    }
+
+    if (fabs(discriminante) <= EPSILON)
+    {
+        double raiz = -b / (2.0 * a);
+        if (x1 != NULL)
+        {
+            *x1 = raiz;
+        }
+        if (x2 != NULL)
+        {
+            *x2 = raiz;
+        }
+        return CUADRATICA_RAIZ_DOBLE;
+    }
+
+    double raiz_delta = sqrt(discriminante);
+    double r1 = (-b - raiz_delta) / (2.0 * a);
+    double r2 = (-b + raiz_delta) / (2.0 * a);
+
+    if (r1 > r2)
+    {
+        double temp = r1;
+        r1 = r2;
+        r2 = temp;
+    }
+
+    if (x1 != NULL)
+    {
+        *x1 = r1;
+    }
+    if (x2 != NULL)
+    {
+        *x2 = r2;
+    }
+
+    return CUADRATICA_DOS_REALES;
+}
+
+int main(void)
+{
+    double r1 = 0.0;
+    double r2 = 0.0;
+
+    /* Caso degenerado (a = 0) */
+    assert(resolver_cuadratica(0.0, 3.0, -6.0, &r1, &r2) == CUADRATICA_DEGENERADA);
+
+    /* Sin raíces reales (x^2 + 1 = 0) */
+    assert(resolver_cuadratica(1.0, 0.0, 1.0, &r1, &r2) == CUADRATICA_SIN_REALES);
+
+    /* Raíz doble ((x - 2)^2 = x^2 - 4x + 4 = 0) */
+    assert(resolver_cuadratica(1.0, -4.0, 4.0, &r1, &r2) == CUADRATICA_RAIZ_DOBLE);
+    assert(fabs(r1 - 2.0) < 1e-6);
+    assert(fabs(r2 - 2.0) < 1e-6);
+
+    /* Dos raíces reales ((x - 2)(x - 3) = x^2 - 5x + 6 = 0) */
+    assert(resolver_cuadratica(1.0, -5.0, 6.0, &r1, &r2) == CUADRATICA_DOS_REALES);
+    assert(fabs(r1 - 2.0) < 1e-6);
+    assert(fabs(r2 - 3.0) < 1e-6);
+
+    /* Seguridad ante punteros NULL */
+    assert(resolver_cuadratica(1.0, -5.0, 6.0, NULL, NULL) == CUADRATICA_DOS_REALES);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} funcion_resolver_cuadratica -->
+
