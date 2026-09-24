@@ -14,6 +14,14 @@ defensivo de errores en tiempo de ejecución.
 ### Capítulos de Apunte Correspondientes
 - {ref}`introduccion_aritmetica_punteros`
 
+### Prerrequisitos Conceptuales
+Antes de abordar estos ejercicios, el estudiante debe dominar:
+1. Ciclo de vida dinámico en Heap (`malloc`, `calloc`, `realloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
+2. Punteros simples y dobles (`T *`, `T **`) para pasaje por referencia y modificación de punteros ({ref}`capitulo-punteros`).
+3. Estructuras de datos heterogéneas (`struct`, `typedef`) ({ref}`capitulo-estructuras`).
+4. Duplicación profunda (*deep copy*) versus copia superficial (*shallow copy*).
+5. Protocolos de limpieza simétrica y prevención de fugas ante fallas de asignación intermedia (*rollback*).
+
 ### Cuestiones de Estilo Aplicables
 - **Manejo seguro de punteros:** Es mandatorio liberar en el orden inverso a la
   asignación (de adentro hacia afuera) y establecer los punteros en `NULL` tras
@@ -27,57 +35,201 @@ defensivo de errores en tiempo de ejecución.
 ## Estructuras con Punteros
 
 (ej_b2_c06_01)=
-### Ejercicio 2.06.01 - Creación de Persona ⭐⭐☆☆☆
+### Ejercicio 2.06.01 - Creación y Destrucción de Persona ⭐⭐☆☆☆
 
-Implementar un constructor para la estructura `persona_t`:
+:::{exercise}
+:label: ej_b2_c06_01_persona_lifecycle
 
-```{code-block} c
-:linenos:
-typedef struct
-{
+Implementá un constructor y destructor defensivo para la estructura `persona_t`:
+
+```c
+typedef struct {
     char *nombre;
     char *apellido;
     int edad;
 } persona_t;
+
 persona_t *persona_crear(const char *nombre, const char *apellido, int edad);
-```
-<!-- {code-block} c -->
-
-**Requisitos:**
-- Verificar que los parámetros no sean nulos.
-- Manejar fallos de `malloc` en cualquier etapa, liberando memoria ya asignada.
-- Retornar `NULL` si alguna asignación falla.
-- Inicializar todos los campos correctamente.
-
-(ej_b2_c06_02)=
-### Ejercicio 2.06.02 - Destrucción de Persona ⭐⭐☆☆☆
-
-Implementar el destructor correspondiente:
-
-``` c
 void persona_destruir(persona_t **ptr_persona);
 ```
-<!-- c -->
 
 **Requisitos:**
-- Liberar en el orden correcto (de adentro hacia afuera).
-- Verificar que el puntero no sea `NULL`.
-- Poner el puntero en `NULL` después de liberar.
-- Manejar correctamente el doble puntero.
+- Si `nombre` o `apellido` son nulos, o `edad < 0`, retornar `NULL`.
+- Manejar fallos de `malloc` en cualquier etapa, liberando memoria asignada previamente (rollback total).
+- El destructor debe liberar campos internos, liberar la estructura y colocar el puntero original en `NULL`.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Parámetros Entrada | Retorno Esperado | Post-Condición Destructor |
+| :--- | :--- | :--- | :--- |
+| Creación válida | `"Alan", "Turing", 41` | Puntero no nulo | `*ptr_persona == NULL` |
+| Nombre nulo | `NULL, "Turing", 30` | `NULL` | N/A |
+| Apellido nulo | `"Alan", NULL, 30` | `NULL` | N/A |
+| Edad negativa | `"Alan", "Turing", -1` | `NULL` | N/A |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+typedef struct {
+    char *nombre;
+    char *apellido;
+    int edad;
+} persona_t;
+
+persona_t *persona_crear(const char *nombre, const char *apellido, int edad) {
+    if (nombre == NULL || apellido == NULL || edad < 0) {
+        return NULL;
+    }
+
+    persona_t *p = (persona_t *)malloc(sizeof(persona_t));
+    if (p == NULL) {
+        return NULL;
+    }
+
+    p->nombre = (char *)malloc(strlen(nombre) + 1);
+    if (p->nombre == NULL) {
+        free(p);
+        return NULL;
+    }
+    strcpy(p->nombre, nombre);
+
+    p->apellido = (char *)malloc(strlen(apellido) + 1);
+    if (p->apellido == NULL) {
+        free(p->nombre);
+        free(p);
+        return NULL;
+    }
+    strcpy(p->apellido, apellido);
+
+    p->edad = edad;
+    return p;
+}
+
+void persona_destruir(persona_t **ptr_persona) {
+    if (ptr_persona == NULL || *ptr_persona == NULL) {
+        return;
+    }
+    persona_t *p = *ptr_persona;
+    free(p->nombre);
+    free(p->apellido);
+    free(p);
+    *ptr_persona = NULL;
+}
+
+int main(void) {
+    persona_t *p = persona_crear("Alan", "Turing", 41);
+    assert(p != NULL);
+    assert(strcmp(p->nombre, "Alan") == 0);
+    assert(strcmp(p->apellido, "Turing") == 0);
+    assert(p->edad == 41);
+
+    persona_destruir(&p);
+    assert(p == NULL);
+
+    /* Casos defensivos */
+    assert(persona_crear(NULL, "Turing", 30) == NULL);
+    assert(persona_crear("Alan", NULL, 30) == NULL);
+    assert(persona_crear("Alan", "Turing", -1) == NULL);
+
+    persona_destruir(&p);
+    persona_destruir(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c06_03)=
 ### Ejercicio 2.06.03 - Clonación Profunda ⭐⭐☆☆☆
 
-Implementar una función que cree una copia completamente independiente de una
+:::{exercise}
+:label: ej_b2_c06_03_clonacion_profunda
+
+Implementá una función que cree una copia completamente independiente de una
 persona:
 
-``` c
+```c
 persona_t *persona_clonar(const persona_t *original);
 ```
-<!-- c -->
 
-La copia debe tener su propia memoria asignada para `nombre` y `apellido`, no
+La copia debe tener su propia memoria asignada para `nombre` y `apellido`, sin
 compartir punteros con el original.
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+typedef struct {
+    char *nombre;
+    char *apellido;
+    int edad;
+} persona_t;
+
+persona_t *persona_crear(const char *nombre, const char *apellido, int edad) {
+    if (nombre == NULL || apellido == NULL || edad < 0) return NULL;
+    persona_t *p = (persona_t *)malloc(sizeof(persona_t));
+    if (p == NULL) return NULL;
+    p->nombre = (char *)malloc(strlen(nombre) + 1);
+    if (p->nombre == NULL) { free(p); return NULL; }
+    strcpy(p->nombre, nombre);
+    p->apellido = (char *)malloc(strlen(apellido) + 1);
+    if (p->apellido == NULL) { free(p->nombre); free(p); return NULL; }
+    strcpy(p->apellido, apellido);
+    p->edad = edad;
+    return p;
+}
+
+void persona_destruir(persona_t **ptr_persona) {
+    if (ptr_persona == NULL || *ptr_persona == NULL) return;
+    free((*ptr_persona)->nombre);
+    free((*ptr_persona)->apellido);
+    free(*ptr_persona);
+    *ptr_persona = NULL;
+}
+
+persona_t *persona_clonar(const persona_t *original) {
+    if (original == NULL) {
+        return NULL;
+    }
+    return persona_crear(original->nombre, original->apellido, original->edad);
+}
+
+int main(void) {
+    persona_t *p1 = persona_crear("Ada", "Lovelace", 36);
+    assert(p1 != NULL);
+
+    persona_t *p2 = persona_clonar(p1);
+    assert(p2 != NULL);
+    assert(p2 != p1);
+    assert(p2->nombre != p1->nombre);
+    assert(p2->apellido != p1->apellido);
+    assert(strcmp(p2->nombre, p1->nombre) == 0);
+    assert(strcmp(p2->apellido, p1->apellido) == 0);
+    assert(p2->edad == p1->edad);
+
+    persona_destruir(&p1);
+    assert(p1 == NULL);
+
+    /* p2 debe seguir intacto tras la destrucción de p1 */
+    assert(strcmp(p2->nombre, "Ada") == 0);
+    persona_destruir(&p2);
+    assert(p2 == NULL);
+
+    assert(persona_clonar(NULL) == NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c06_04)=
 ### Ejercicio 2.06.04 - Estructura con Múltiples Niveles ⭐⭐⭐☆☆
@@ -148,27 +300,178 @@ se describe en las buenas prácticas de la cátedra.
 (ej_b2_c06_07)=
 ### Ejercicio 2.06.07 - Matriz Dentada (Array de Punteros) ⭐⭐⭐☆☆
 
-Implementar funciones para crear y liberar una matriz dentada donde cada fila se
-aloja como un bloque independiente.
+:::{exercise}
+:label: ej_b2_c06_07_matriz_dentada
 
-``` c
+Implementá funciones para crear y liberar una matriz dentada donde cada fila se
+aloja como un bloque independiente:
+
+```c
 int **crear_matriz_dentada(size_t filas, size_t columnas);
 void liberar_matriz_dentada(int ***ptr_matriz, size_t filas);
 ```
-<!-- c -->
+
+**Requisitos:**
+- Si `filas == 0` o `columnas == 0`, retornar `NULL`.
+- En caso de fallo de `malloc` en una fila intermedia, liberar las filas previas y el array de punteros (*rollback* completo).
+- `liberar_matriz_dentada` debe poner el puntero original en `NULL`.
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int **crear_matriz_dentada(size_t filas, size_t columnas) {
+    if (filas == 0 || columnas == 0) {
+        return NULL;
+    }
+
+    int **m = (int **)malloc(filas * sizeof(int *));
+    if (m == NULL) {
+        return NULL;
+    }
+
+    for (size_t i = 0; i < filas; ++i) {
+        m[i] = (int *)malloc(columnas * sizeof(int));
+        if (m[i] == NULL) {
+            /* Rollback de filas previas */
+            for (size_t j = 0; j < i; ++j) {
+                free(m[j]);
+            }
+            free(m);
+            return NULL;
+        }
+    }
+    return m;
+}
+
+void liberar_matriz_dentada(int ***ptr_matriz, size_t filas) {
+    if (ptr_matriz == NULL || *ptr_matriz == NULL) {
+        return;
+    }
+    int **m = *ptr_matriz;
+    for (size_t i = 0; i < filas; ++i) {
+        free(m[i]);
+    }
+    free(m);
+    *ptr_matriz = NULL;
+}
+
+int main(void) {
+    size_t filas = 3;
+    size_t cols = 4;
+    int **m = crear_matriz_dentada(filas, cols);
+    assert(m != NULL);
+
+    for (size_t i = 0; i < filas; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            m[i][j] = (int)(i * 10 + j);
+        }
+    }
+
+    assert(m[0][0] == 0);
+    assert(m[1][2] == 12);
+    assert(m[2][3] == 23);
+
+    liberar_matriz_dentada(&m, filas);
+    assert(m == NULL);
+
+    /* Casos límite */
+    assert(crear_matriz_dentada(0, 5) == NULL);
+    assert(crear_matriz_dentada(5, 0) == NULL);
+    liberar_matriz_dentada(&m, 0);
+    liberar_matriz_dentada(NULL, 5);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c06_08)=
 ### Ejercicio 2.06.08 - Matriz de Bloque Único (Contigua) ⭐⭐⭐☆☆
 
-Implementar funciones para crear y liberar una matriz contigua en memoria,
-reservando un único bloque para todos los datos y configurando el array de
-punteros a filas.
+:::{exercise}
+:label: ej_b2_c06_08_matriz_contigua
 
-``` c
+Implementá funciones para crear y liberar una matriz contigua en memoria,
+reservando un bloque único para los datos y configurando el array de punteros a filas:
+
+```c
 int **crear_matriz_contigua(size_t filas, size_t columnas);
 void liberar_matriz_contigua(int ***ptr_matriz);
 ```
-<!-- c -->
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int **crear_matriz_contigua(size_t filas, size_t columnas) {
+    if (filas == 0 || columnas == 0) {
+        return NULL;
+    }
+
+    int **m = (int **)malloc(filas * sizeof(int *));
+    if (m == NULL) {
+        return NULL;
+    }
+
+    int *datos = (int *)malloc(filas * columnas * sizeof(int));
+    if (datos == NULL) {
+        free(m);
+        return NULL;
+    }
+
+    for (size_t i = 0; i < filas; ++i) {
+        m[i] = datos + (i * columnas);
+    }
+    return m;
+}
+
+void liberar_matriz_contigua(int ***ptr_matriz) {
+    if (ptr_matriz == NULL || *ptr_matriz == NULL) {
+        return;
+    }
+    int **m = *ptr_matriz;
+    /* Liberar bloque de datos contiguo indexado en fila 0 */
+    free(m[0]);
+    /* Liberar arreglo de punteros */
+    free(m);
+    *ptr_matriz = NULL;
+}
+
+int main(void) {
+    size_t filas = 4;
+    size_t cols = 5;
+    int **m = crear_matriz_contigua(filas, cols);
+    assert(m != NULL);
+
+    for (size_t i = 0; i < filas; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            m[i][j] = (int)(i + j);
+        }
+    }
+
+    assert(m[0][0] == 0);
+    assert(m[3][4] == 7);
+    /* Verificar contigüidad en memoria: m[1][0] debe ser m[0][0] + cols */
+    assert(&m[1][0] == &m[0][cols]);
+
+    liberar_matriz_contigua(&m);
+    assert(m == NULL);
+
+    assert(crear_matriz_contigua(0, 5) == NULL);
+    assert(crear_matriz_contigua(5, 0) == NULL);
+    liberar_matriz_contigua(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c06_09)=
 ### Ejercicio 2.06.09 - Conversión de Array Plano a Matriz ⭐⭐⭐☆☆

@@ -8,56 +8,230 @@ short_title: 6. Memoria Dinámica
 ## Acerca de
 
 A diferencia de la memoria estática (stack), la memoria dinámica (heap) nos
-permite solicitar y liberar bloques de memoria en tiempo de ejecución, cuyo
+permite solicitar y liberar bloques de memoria en tiempo de ejecución en C11, cuyo
 tamaño puede no ser conocido al momento de compilar. Estos ejercicios se centran
 en el uso correcto de `malloc`, `calloc`, `realloc` y `free` para gestionar el
 ciclo de vida de arreglos, cadenas y matrices.
 
-Para más detalles teóricos sobre la gestión de memoria dinámica, consultá [el
-capítulo de Memoria
-Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
-apunte. Recordá aplicar la regla de estilo de la cátedra {ref}`0x3002h` para
-asegurar la liberación correcta de recursos y evitar punteros colgantes.
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-memoria-dinamica`
+- {ref}`capitulo-punteros`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Memoria Heap frente a memoria Stack: ciclo de vida manual vs automático ({ref}`capitulo-memoria-dinamica`).
+2. Funciones de asignación (`malloc`, `calloc`, `realloc`) y verificación de puntero nulo (`NULL`).
+3. Liberación simétrica y completa con `free` y anulación de puntero (*dangling pointer prevention*).
+4. Detección de fugas de memoria (*memory leaks*) y accesos inválidos (*use-after-free*).
+
+### Cuestiones de Estilo Aplicables
+- **Verificación de Retorno:** Siempre se debe comprobar que el retorno de
+  `malloc` o `realloc` sea distinto de `NULL` antes de desreferenciarlo ({ref}`0x3001h`).
+- **Liberación Segura:** Tras liberar un bloque con `free(ptr)`, asigná `ptr = NULL`
+  para mitigar referencias colgantes ({ref}`0x3002h`).
+
+---
 
 ## Arreglos Dinámicos
 
 (ej_b2_c05_01)=
-### Ejercicio 2.05.01 - Ciclo de vida ⭐⭐☆☆☆
+### Ejercicio 2.05.01 - Ciclo de Vida de Arreglo Dinámico ⭐⭐☆☆☆
 
-Implementar un par de funciones para crear y destruir un arreglo dinámico.
+:::{exercise}
+:label: ej_b2_c05_01_ciclo_vida
 
-- `int* crear_arreglo(size_t tamano)`: Debe usar `malloc(tamano * sizeof(int))`
-  para reservar un bloque de memoria contiguo para `tamano` enteros. Es crucial
-  verificar si `malloc` devolvió `NULL` (indicando un fallo) antes de retornar
-  el puntero.
-- `void liberar_arreglo(int *arr)`: Debe llamar a `free(arr)` para devolver la
-  memoria al sistema. Después de liberar, es una buena práctica asignar `NULL`
-  al puntero para evitar su uso accidental (puntero colgante).
+Implementá un par de funciones para la gestión del ciclo de vida de un arreglo dinámico:
+1. `int *crear_arreglo_dinamico(size_t n)`: reserva memoria contigua inicializada
+   en cero para `n` enteros usando `calloc`. Retorna `NULL` ante fallos de memoria.
+2. `void destruir_arreglo_dinamico(int **arr)`: libera el bloque y asigna `NULL`
+   al puntero del llamador para prevenir punteros colgantes.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Tamaño `n` | Retorno | Estado Post-Destrucción |
+| :--- | :--- | :--- | :--- |
+| Creación exitosa | `5` | Puntero válido no nulo, valores en 0 | `*arr == NULL` |
+| Tamaño cero | `0` | Puntero o `NULL` manejado sin error | `*arr == NULL` |
+| Puntero nulo | - | No produce caída (*graceful return*) | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int *crear_arreglo_dinamico(size_t n) {
+    if (n == 0) {
+        return NULL;
+    }
+    return (int *)calloc(n, sizeof(int));
+}
+
+void destruir_arreglo_dinamico(int **arr) {
+    if (arr != NULL && *arr != NULL) {
+        free(*arr);
+        *arr = NULL;
+    }
+}
+
+int main(void) {
+    int *arr = crear_arreglo_dinamico(5);
+    assert(arr != NULL);
+    for (size_t i = 0; i < 5; ++i) {
+        assert(arr[i] == 0);
+        arr[i] = (int)(i * 10);
+    }
+    assert(arr[4] == 40);
+
+    destruir_arreglo_dinamico(&arr);
+    assert(arr == NULL);
+
+    /* Destrucción redundante segura */
+    destruir_arreglo_dinamico(&arr);
+    destruir_arreglo_dinamico(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c05_02)=
-### Ejercicio 2.05.02 - Duplicadora ⭐⭐☆☆☆
+### Ejercicio 2.05.02 - Duplicación de Arreglo en Heap ⭐⭐☆☆☆
 
-Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
-**Algoritmo:**
+:::{exercise}
+:label: ej_b2_c05_02_duplicar
 
-1.  Reservar memoria para un nuevo arreglo del mismo tamaño que el original.
-2.  Verificar que la reserva de memoria fue exitosa.
-3.  Recorrer el arreglo de origen y copiar cada elemento al nuevo arreglo.
-4.  Retornar el puntero al nuevo arreglo.
+Implementá una función que cree una copia exacta e independiente en memoria dinámica
+de un arreglo recibido.
+
+```c
+int *duplicar_arreglo_dinamico(const int *origen, size_t n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo Origen | `n` | Copia Retornada | Comportamiento |
+| :--- | :--- | :--- | :--- |
+| `[10, 20, 30]` | `3` | Puntero a nuevo bloque con `[10, 20, 30]` | Memoria independiente |
+| `NULL` o vacío | `0` | `NULL` | Retorno seguro |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int *duplicar_arreglo_dinamico(const int *origen, size_t n) {
+    if (origen == NULL || n == 0) {
+        return NULL;
+    }
+    int *copia = (int *)malloc(n * sizeof(int));
+    if (copia == NULL) {
+        return NULL;
+    }
+    for (size_t i = 0; i < n; ++i) {
+        copia[i] = origen[i];
+    }
+    return copia;
+}
+
+int main(void) {
+    int orig[] = {10, 20, 30};
+    int *clon = duplicar_arreglo_dinamico(orig, 3);
+    assert(clon != NULL);
+    assert(clon != orig);
+    for (size_t i = 0; i < 3; ++i) {
+        assert(clon[i] == orig[i]);
+    }
+
+    clon[0] = 999;
+    assert(orig[0] == 10); /* Verificación de independencia */
+
+    free(clon);
+    assert(duplicar_arreglo_dinamico(NULL, 5) == NULL);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c05_03)=
-### Ejercicio 2.05.03 - Fusión de Arreglos Ordenados ⭐⭐⭐☆☆
+### Ejercicio 2.05.03 - Fusión de Arreglos Ordenados en Heap ⭐⭐⭐☆☆
 
-Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
-**Algoritmo:**
+:::{exercise}
+:label: ej_b2_c05_03_fusion
 
-1.  Reservar memoria para un nuevo arreglo de tamaño `n1 + n2`.
-2.  Usar tres contadores: `i` para `a1`, `j` para `a2`, y `k` para el nuevo
-    arreglo.
-3.  Mientras `i < n1` y `j < n2`, comparar `a1[i]` y `a2[j]` y copiar el menor
-    al nuevo arreglo, incrementando el contador correspondiente y `k`.
-4.  Al salir del lazo, copiar los elementos restantes del arreglo que no se haya
-    completado.
+Implementá una función que tome dos arreglos ordenados ascendentemente y retorne
+un nuevo bloque dinámico conteniendo todos los elementos fusionados en orden.
+
+```c
+int *fusionar_arreglos_ordenados(const int *a1, size_t n1, const int *a2, size_t n2);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo 1 | Arreglo 2 | Resultado Fusionado |
+| :--- | :--- | :--- |
+| `[1, 5, 9]` | `[2, 4, 8, 10]` | `[1, 2, 4, 5, 8, 9, 10]` |
+| `[10, 20]` | `[]` | `[10, 20]` |
+| `[]` | `[3, 7]` | `[3, 7]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int *fusionar_arreglos_ordenados(const int *a1, size_t n1, const int *a2, size_t n2) {
+    size_t total = n1 + n2;
+    if (total == 0) {
+        return NULL;
+    }
+    int *res = (int *)malloc(total * sizeof(int));
+    if (res == NULL) {
+        return NULL;
+    }
+    size_t i = 0;
+    size_t j = 0;
+    size_t k = 0;
+
+    while (i < n1 && j < n2) {
+        if (a1[i] <= a2[j]) {
+            res[k++] = a1[i++];
+        } else {
+            res[k++] = a2[j++];
+        }
+    }
+    while (i < n1) {
+        res[k++] = a1[i++];
+    }
+    while (j < n2) {
+        res[k++] = a2[j++];
+    }
+    return res;
+}
+
+int main(void) {
+    int a1[] = {1, 5, 9};
+    int a2[] = {2, 4, 8, 10};
+    int *fus = fusionar_arreglos_ordenados(a1, 3, a2, 4);
+    assert(fus != NULL);
+    int esp[] = {1, 2, 4, 5, 8, 9, 10};
+    for (size_t idx = 0; idx < 7; ++idx) {
+        assert(fus[idx] == esp[idx]);
+    }
+    free(fus);
+
+    int *fus2 = fusionar_arreglos_ordenados(a1, 3, NULL, 0);
+    assert(fus2 != NULL && fus2[0] == 1 && fus2[1] == 5 && fus2[2] == 9);
+    free(fus2);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c05_04)=
 ### Ejercicio 2.05.04 - Inserción y Eliminación ⭐⭐☆☆☆

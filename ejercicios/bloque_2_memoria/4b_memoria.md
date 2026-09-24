@@ -7,56 +7,128 @@ short_title: 11. Memoria Dinámica
 
 ## Acerca de
 
-Estos ejercicios profundizan en la gestión de memoria dinámica, cubriendo temas
-avanzados como la relación stack-heap, el modelo de memoria de procesos,
-patrones de gestión de memoria, y la detección de errores comunes mediante
-herramientas de análisis.
+Estos ejercicios profundizan en la gestión de memoria dinámica en C11, cubriendo temas
+como la relación stack-heap, el modelo de memoria de procesos en sistemas POSIX/Linux,
+patrones de gestión de memoria, y la prevención sistemática de fugas.
 
-Para más detalles teóricos sobre estos conceptos, podés consultar [el capítulo
-de Modelo de
-Memoria](../../apunte/bloque_2_memoria/1_modelo_memoria.md) y el de
-[Memoria
-Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
-apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
-adecuada de recursos y prevención de punteros colgantes.
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-modelo-memoria`
+- {ref}`capitulo-memoria-dinamica`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Segmentos de memoria de un proceso: `.text` (código), `.rodata`, `.data`, `.bss`, Heap y Stack.
+2. Comportamiento de las variables automáticas en Stack y asignaciones dinámicas en Heap.
+3. Conversión de punteros a `uintptr_t` de `<stdint.h>` para comparación y aritmética de direcciones.
+4. Prevención de desbordamientos de pila (*Stack Overflow*) y fugas de recursos (*Leaks*).
+
+### Cuestiones de Estilo Aplicables
+- **Liberación adecuada:** Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
+  completa de recursos en Heap.
+- **Punteros genéricos:** Al imprimir direcciones con `%p`, realizá el cast explícito a `(void *)`.
+
+---
 
 ## Modelo de Memoria
 
 (ej_b2_c05b_01)=
-### Ejercicio 2.05b.01 - b.1 - Exploración del Layout de Memoria ⭐⭐☆☆☆
+### Ejercicio 2.05b.01 - Comparación Relativa de Segmentos de Memoria ⭐⭐☆☆☆
 
-Escribir un programa que imprima las direcciones de memoria de:
-- Una variable local (stack)
-- Un parámetro de función (stack)
-- Una variable global (.data)
-- Una variable estática (.bss)
-- Una constante de cadena (.rodata)
-- Memoria asignada con `malloc` (heap)
+:::{exercise}
+:label: ej_b2_c05b_01_layout
 
-**Objetivo:** Visualizar las diferentes regiones de memoria y confirmar el
-layout típico: stack (altas direcciones) → heap (bajas direcciones) → data/bss →
-text.
+Escribí un programa en C11 que verifique la relación espacial típica de segmentos
+en arquitecturas modernas de 64 bits: las variables locales del Stack residen en
+direcciones significativamente mayores que los bloques asignados en el Heap.
 
-(ej_b2_c05b_02)=
-### Ejercicio 2.05b.02 - b.2 - Dirección de Crecimiento del Stack ⭐⭐☆☆☆
+```c
+bool verificar_layout_stack_heap(void);
+```
 
-Escribir una función recursiva que imprima la dirección de una variable local en
-cada llamada. Observar si el stack crece hacia direcciones más altas o más
-bajas.
+**Tabla de Vectores de Prueba:**
 
-```{code-block} c
-:linenos:
-void explorar_stack(int nivel)
-{
-    int variable_local;
-    printf("Nivel %d: direccion = %p\n", nivel, (void *)&variable_local);
-    if (nivel < 5)
-    {
-        explorar_stack(nivel + 1);
+| Caso de Prueba | Comportamiento Esperado | Retorno |
+| :--- | :--- | :--- |
+| Verificación de jerarquía | `&var_stack > (uintptr_t)ptr_heap` | `true` |
+| Liberación limpia | Bloque en Heap liberado sin fuga | `free` ejecutado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <assert.h>
+
+bool verificar_layout_stack_heap(void) {
+    int var_stack = 42;
+    int *ptr_heap = (int *)malloc(sizeof(int));
+    if (ptr_heap == NULL) {
+        return false;
     }
+    *ptr_heap = 99;
+
+    uintptr_t dir_stack = (uintptr_t)&var_stack;
+    uintptr_t dir_heap = (uintptr_t)ptr_heap;
+
+    /* En Linux x86_64, el stack está en el extremo superior del espacio de direcciones */
+    bool stack_mayor_que_heap = (dir_stack > dir_heap);
+
+    free(ptr_heap);
+    return stack_mayor_que_heap;
+}
+
+int main(void) {
+    assert(verificar_layout_stack_heap());
+    return 0;
 }
 ```
-<!-- {code-block} c -->
+::::
+:::
+
+(ej_b2_c05b_02)=
+### Ejercicio 2.05b.02 - Dirección de Crecimiento del Stack ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b2_c05b_02_crecimiento_stack
+
+Implementá una función que detecte empíricamente si la pila (*stack*) crece hacia
+direcciones descendentes o ascendentes mediante dos marcos de llamada anidados.
+
+```c
+bool stack_crece_hacia_abajo(void);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arquitectura Típica | Comportamiento | Retorno Esperado |
+| :--- | :--- | :--- |
+| x86 / x86_64 / ARM64 estándar | Marco anidado en dirección menor que marco padre | `true` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <assert.h>
+
+static bool auxiliar_anidado(const int *dir_padre) {
+    int var_hija = 0;
+    return ((uintptr_t)&var_hija < (uintptr_t)dir_padre);
+}
+
+bool stack_crece_hacia_abajo(void) {
+    int var_padre = 0;
+    return auxiliar_anidado(&var_padre);
+}
+
+int main(void) {
+    assert(stack_crece_hacia_abajo());
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c05b_03)=
 ### Ejercicio 2.05b.03 - b.3 - Tamaño de Página del Sistema ⭐⭐☆☆☆

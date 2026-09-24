@@ -14,6 +14,14 @@ en C.
 ### Capítulos de Apunte Correspondientes
 - {ref}`trabajando-con-archivos-de-texto-en-c`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Descriptor de archivo y streams en C (`FILE *`) ({ref}`trabajando-con-archivos-de-texto-en-c`).
+2. Modos de apertura (`"r"`, `"w"`, `"a"`) y verificación obligatoria contra `NULL` ante archivos inexistentes o sin permisos.
+3. Lectura y escritura segura mediante buffers fijos (`fgets`, `fputs`, `fscanf`, `fprintf`).
+4. Detección precisa de fin de archivo (`feof`, retorno de `fscanf`/`fgets`) sin lectura redundante.
+5. Cierre mandatorio con `fclose` para vaciar búferes y liberar descriptores del sistema operativo.
+
 ### Cuestiones de Estilo Aplicables
 - **Cierre de archivos:** Es obligatorio verificar la apertura correcta del
   puntero `FILE *` contra `NULL` y cerrar siempre el archivo con `fclose` para
@@ -47,20 +55,188 @@ En este ejemplo, el `5` inicial indica que hay 5 números a continuación.
 (ej_b2_c04_01)=
 ### Ejercicio 2.04.01 - ¿Es correcto el formato? ⭐⭐☆☆☆
 
-Desarrollar una función `bool es_formato_correcto(const char *ruta)`.
+:::{exercise}
+:label: ej_b2_c04_01_formato_correcto
 
-**Lógica**: Abrir el archivo, leer el primer número (la cuenta esperada). Luego,
-iterar con `fgets` o `fscanf` contando las líneas restantes. Finalmente,
-comparar la cuenta real con la esperada.
+Desarrollá una función `bool es_formato_correcto(const char *ruta)` que valide
+si un archivo cumple el formato numérico especificado:
+1. La primera línea contiene un entero $N \ge 0$ (la cantidad esperada).
+2. Le siguen exactamente $N$ líneas con un entero cada una.
+3. Retorna `true` si el formato coincide exactamente y `false` ante discrepancias o error de apertura.
+
+**Tabla de Vectores de Prueba:**
+
+| Archivo | Contenido | Retorno Esperado |
+| :--- | :--- | :--- |
+| `valido.txt` | `3\n10\n20\n30\n` | `true` |
+| `incompleto.txt` | `3\n10\n20\n` | `false` |
+| `exceso.txt` | `2\n10\n20\n30\n` | `false` |
+| `inexistente.txt` | No existe | `false` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool es_formato_correcto(const char *ruta) {
+    if (ruta == NULL) {
+        return false;
+    }
+    FILE *f = fopen(ruta, "r");
+    if (f == NULL) {
+        return false;
+    }
+
+    int esperado = 0;
+    if (fscanf(f, "%d", &esperado) != 1 || esperado < 0) {
+        fclose(f);
+        return false;
+    }
+
+    int leidos = 0;
+    int valor = 0;
+    while (fscanf(f, "%d", &valor) == 1) {
+        leidos++;
+    }
+
+    fclose(f);
+    return (leidos == esperado);
+}
+
+static void crear_archivo_prueba(const char *ruta, const char *contenido) {
+    FILE *f = fopen(ruta, "w");
+    assert(f != NULL);
+    fputs(contenido, f);
+    fclose(f);
+}
+
+int main(void) {
+    const char *f1 = "temp_valido.txt";
+    const char *f2 = "temp_incompleto.txt";
+    const char *f3 = "temp_exceso.txt";
+
+    crear_archivo_prueba(f1, "3\n10\n20\n30\n");
+    crear_archivo_prueba(f2, "3\n10\n20\n");
+    crear_archivo_prueba(f3, "2\n10\n20\n30\n");
+
+    assert(es_formato_correcto(f1) == true);
+    assert(es_formato_correcto(f2) == false);
+    assert(es_formato_correcto(f3) == false);
+    assert(es_formato_correcto("archivo_que_no_existe_404.txt") == false);
+    assert(es_formato_correcto(NULL) == false);
+
+    remove(f1);
+    remove(f2);
+    remove(f3);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c04_02)=
 ### Ejercicio 2.04.02 - ¿Está ordenado? ⭐⭐☆☆☆
 
-Implementar `int verificar_orden(const char *ruta)`.
+:::{exercise}
+:label: ej_b2_c04_02_verificar_orden
 
-**Lógica**: Leer el archivo, guardando el número anterior en cada iteración y
-comparándolo con el actual para determinar si la secuencia es ascendente,
-descendente o desordenada.
+Implementá una función `int verificar_orden(const char *ruta)` que determine si
+los números contenidos en el archivo están ordenados:
+- Retorna `1` si la secuencia de $N$ números es estrictamente ascendente o no decreciente ($v_i \le v_{i+1}$).
+- Retorna `-1` si es estrictamente descendente o no creciente ($v_i \ge v_{i+1}$).
+- Retorna `0` si está desordenada.
+- Retorna `-2` ante error de archivo o formato inválido.
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+int verificar_orden(const char *ruta) {
+    if (ruta == NULL) {
+        return -2;
+    }
+    FILE *f = fopen(ruta, "r");
+    if (f == NULL) {
+        return -2;
+    }
+
+    int n = 0;
+    if (fscanf(f, "%d", &n) != 1 || n < 0) {
+        fclose(f);
+        return -2;
+    }
+
+    if (n <= 1) {
+        fclose(f);
+        return 1; /* Secuencia trivialmente ordenada */
+    }
+
+    int anterior = 0;
+    if (fscanf(f, "%d", &anterior) != 1) {
+        fclose(f);
+        return -2;
+    }
+
+    bool es_asc = true;
+    bool es_desc = true;
+    int actual = 0;
+
+    for (int i = 1; i < n; ++i) {
+        if (fscanf(f, "%d", &actual) != 1) {
+            fclose(f);
+            return -2;
+        }
+        if (actual < anterior) {
+            es_asc = false;
+        }
+        if (actual > anterior) {
+            es_desc = false;
+        }
+        anterior = actual;
+    }
+
+    fclose(f);
+
+    if (es_asc) return 1;
+    if (es_desc) return -1;
+    return 0;
+}
+
+static void crear_archivo(const char *ruta, const char *contenido) {
+    FILE *f = fopen(ruta, "w");
+    assert(f != NULL);
+    fputs(contenido, f);
+    fclose(f);
+}
+
+int main(void) {
+    const char *f_asc = "temp_asc.txt";
+    const char *f_desc = "temp_desc.txt";
+    const char *f_desord = "temp_desord.txt";
+
+    crear_archivo(f_asc, "4\n1\n3\n5\n7\n");
+    crear_archivo(f_desc, "4\n9\n6\n4\n2\n");
+    crear_archivo(f_desord, "4\n3\n8\n2\n9\n");
+
+    assert(verificar_orden(f_asc) == 1);
+    assert(verificar_orden(f_desc) == -1);
+    assert(verificar_orden(f_desord) == 0);
+    assert(verificar_orden("inexistente_999.txt") == -2);
+    assert(verificar_orden(NULL) == -2);
+
+    remove(f_asc);
+    remove(f_desc);
+    remove(f_desord);
+    return 0;
+}
+```
+::::
+:::
 
 ---
 

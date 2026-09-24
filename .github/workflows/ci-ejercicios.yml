@@ -48,8 +48,12 @@ jobs:
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/2_arreglos.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/2b_cadenas.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/3_archivos.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/3b_ejercicios_archivos.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/4_memoria_dinamica.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/4b_memoria.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/4c_ejercicios_memoria.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/5_punteros_2.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/6_structs.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/7_alias_tipos_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_3_algoritmos_estructuras/1_matrices.md
