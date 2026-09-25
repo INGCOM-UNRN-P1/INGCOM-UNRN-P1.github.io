@@ -52,7 +52,7 @@ long long suma_cuenta_regresiva(int n)
 ```
 Retorna la suma de los enteros de $1$ a $n$, o `0` si $n \le 0$.
 
-```{table} Vectores de prueba - Cuenta regresiva
+```{table} Vectores de Prueba - Cuenta regresiva
 :align: center
 
 | Caso de Prueba | Valor $N$ | Pasos Retornados | Suma Acumulada |
@@ -133,15 +133,10 @@ int main(void) {
     return 0;
 }
 ```
-:::
-
-
-
-
-(ej_b1_c01_02)=
+:::(ej_b1_c01_02)=
 ### Ejercicio 1.01.02 - ¡Hola mundo! ⭐⭐☆☆☆
 
-::::{exercise}
+:::{exercise}
 :label: ej_b1_c01_02_hola_mundo
 
 El "Hola, mundo!" es el primer paso tradicional en el aprendizaje de un nuevo
@@ -154,7 +149,7 @@ el entorno de desarrollo están configurados y funcionando correctamente.
 -   **Proceso:** Se utiliza una función de la biblioteca estándar para enviar
 -   **Salida:** El programa debe imprimir la cadena de texto "Hola, mundo!"
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -167,17 +162,15 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-::::
 
-(ej_b1_c01_03)=
+:::(ej_b1_c01_03)=
 ### Ejercicio 1.01.03 - Saludador ⭐⭐☆☆☆
 
-::::{exercise}
+:::{exercise}
 :label: ej_b1_c01_03_saludador
 
 Este ejercicio amplía el "Hola, mundo!", para que el programa interactúe con el
@@ -190,7 +183,7 @@ lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 -   **Funciones de Lectura:** Se puede usar `scanf()` o `fgets()` para leer la entrada del usuario.
 -   **Salida:** Finalmente, el programa debe imprimir el saludo personalizado incluyendo el nombre.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -209,12 +202,12 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-::::
+
+:::
 ---
 
 ## Rangos y Secuencias
@@ -222,20 +215,19 @@ FIN
 (ej_b1_c01_04)=
 ### Ejercicio 1.01.04 - Pares en un rango ⭐⭐☆☆☆
 
-::::{exercise}
+:::{exercise}
 :label: ej_b1_c01_04_pares_rango
 
 Implementá una función que cuente cuántos números pares existen en un intervalo cerrado `[inicio, fin]`:
 - Si `inicio > fin`, la función debe intercambiar los límites o procesar el rango ordenado.
 - Retorna la cantidad de enteros pares presentes en el intervalo.
 
-````{code-block} c
-:linenos:
+```{code-block} c
 int contar_pares_en_rango(int inicio, int fin);
 ```
 
-**Tabla de Vectores de Prueba:**
-:::{table}
+```{table} Vectores de Prueba - Pares en un rango
+:align: center
 
 | Caso de Prueba | Rango `[inicio, fin]` | Retorno Esperado | Justificación |
 | :--- | :--- | :--- | :--- |
@@ -244,12 +236,13 @@ int contar_pares_en_rango(int inicio, int fin);
 | Límites invertidos | `[10, 1]` | `5` | Mismo intervalo ordenado |
 | Intervalo degenerado impar | `[3, 3]` | `0` | Sin pares |
 | Intervalo degenerado par | `[4, 4]` | `1` | Solo el número 4 |
+```
 :::
 
-::::
+:::{solution} ej_b1_c01_04_pares_rango
+:class: dropdown
 
-::::{solution}
-````{code-block} c
+```{code-block} c
 :linenos:
 #include <stdio.h>
 #include <assert.h>
@@ -279,9 +272,7 @@ int main(void) {
     return 0;
 }
 ```
-::::
 :::
-
 ---
 
 (ej_b1_c01_05)=
@@ -294,11 +285,12 @@ Implementá una función que calcule la suma acumulada de los primeros $N$ núme
 - Recordá la propiedad matemática: $\sum_{k=1}^N (2k-1) = N^2$.
 - Si $N \le 0$, retorna `0`.
 
-````{code-block} c
+```{code-block} c
 long long suma_primeros_n_impares(int n);
 ```
 
-**Tabla de Vectores de Prueba:**
+```{table} Vectores de Prueba - Suma de los Primeros N Impares
+:align: center
 
 | Caso de Prueba | Valor $N$ | Retorno Esperado | Propiedad $N^2$ |
 | :--- | :--- | :--- | :--- |
@@ -307,9 +299,31 @@ long long suma_primeros_n_impares(int n);
 | Diez términos | `10` | `100` | $10^2 = 100$ |
 | No positivo | `0` | `0` | Retorno nulo |
 | Negativo | `-5` | `0` | Retorno nulo |
+```
+:::
 
-::::{solution}
-````{code-block} c
+:::{tip} Ayuda (pseudocódigo)
+:class: dropdown
+
+```{code-block} pseudocode
+:linenos:
+
+ALGORITMO primeros_n_impares
+ENTRADA: n_terminos (entero)
+
+INICIO
+    PARA k DESDE 1 HASTA n_terminos HACER
+        impar = 2 * k - 1
+        ESCRIBIR impar
+    FIN PARA
+FIN
+```
+:::
+
+:::{solution} ej_b1_c01_05_impares
+:class: dropdown
+
+```{code-block} c
 :linenos:
 #include <stdio.h>
 #include <assert.h>
@@ -337,30 +351,7 @@ int main(void) {
     return 0;
 }
 ```
-::::
 :::
-
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-
-ALGORITMO primeros_n_impares
-ENTRADA: n_terminos (entero)
-
-INICIO
-    PARA k DESDE 1 HASTA n_terminos HACER
-        impar = 2 * k - 1
-        ESCRIBIR impar
-    FIN PARA
-FIN
-
-```
-<!-- {code-block} pseudocode -->
-
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
-
 ---
 
 ## Operaciones con Rangos Numéricos
@@ -375,11 +366,12 @@ Implementá una función que calcule la suma acumulada de la secuencia de númer
 - Si $n \ge m$, el intervalo está vacío y la suma debe ser `0LL`.
 - En caso contrario, suma cada valor entero $i$ desde $n$ hasta $m - 1$.
 
-````{code-block} c
+```{code-block} c
 long long suma_secuencia_ascendente(int n, int m);
 ```
 
-**Tabla de Vectores de Prueba:**
+```{table} Vectores de Prueba - Secuencia Ascendente y Suma de Rango
+:align: center
 
 | Caso de Prueba | Intervalo `[n, m)` | Elementos Sumados | Retorno Esperado |
 | :--- | :--- | :--- | :--- |
@@ -388,9 +380,13 @@ long long suma_secuencia_ascendente(int n, int m);
 | Rango unitario | `[7, 8)` | `7` | `7LL` |
 | Rango vacío ($n \ge m$) | `[5, 5)` | Ninguno | `0LL` |
 | Rango invertido | `[10, 4)` | Ninguno | `0LL` |
+```
+:::
 
-::::{solution}
-````{code-block} c
+:::{solution} ej_b1_c01_06_secuencia_ascendente
+:class: dropdown
+
+```{code-block} c
 :linenos:
 #include <stdio.h>
 #include <assert.h>
@@ -415,11 +411,11 @@ int main(void) {
     return 0;
 }
 ```
-::::
-:::
-
-(ej_b1_c01_07)=
+:::(ej_b1_c01_07)=
 ### Ejercicio 1.01.07 - Secuencia Descendente ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_07
 
 Similar al anterior, pero esta vez la secuencia debe ir en orden descendente. Se
 parte de un número `n` y se retrocede hasta un número `m`, sin incluirlo. Esto
@@ -430,7 +426,7 @@ corresponde al intervalo `(m, n]`.
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
 -   **Salida:** Imprimir el valor del contador en cada iteración.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -447,13 +443,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_08)=
+:::(ej_b1_c01_08)=
 ### Ejercicio 1.01.08 - Sumatoria ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_08
 
 Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Esto
 es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
@@ -464,7 +460,7 @@ es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 -   **Proceso:** Usar un lazo `for` que itere desde `n` hasta `m`. En cada
 -   **Salida:** Después de que el lazo termine, imprimir el valor final del acumulador.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -485,13 +481,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_09)=
+:::(ej_b1_c01_09)=
 ### Ejercicio 1.01.09 - Suma de Cuadrados ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_09
 
 Calcular la suma de los cuadrados de todos los números enteros en un rango
 cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
@@ -502,7 +498,7 @@ cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 -   **Proceso:** Usar un lazo `for` que itere de `n` a `m`. En cada iteración, sumar `i * i` al acumulador.
 -   **Salida:** Al final, imprimir el valor del `acumulador`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -523,17 +519,18 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
-
 ---
 
 ## Estructuras Condicionales
 
 (ej_b1_c01_10)=
 ### Ejercicio 1.01.10 - Par o Impar ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_10
 
 Este es un ejercicio fundamental de lógica condicional. El programa debe
 solicitar un número entero al usuario y determinar si es par (divisible por 2) o
@@ -545,7 +542,7 @@ impar.
 -   **Condición:** Se utiliza una estructura `if-else`. Si `numero % 2 == 0`, el número es par; de lo contrario, es impar.
 -   **Salida:** Imprimir un mensaje claro que indique el resultado, como "El número es par" o "El número es impar".
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -565,13 +562,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_11)=
+:::(ej_b1_c01_11)=
 ### Ejercicio 1.01.11 - Signo de un Número ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_11
 
 El programa debe clasificar un número real (de punto flotante) ingresado por el
 usuario en una de tres categorías: positivo, negativo o cero.
@@ -582,7 +579,7 @@ usuario en una de tres categorías: positivo, negativo o cero.
 -   **Condiciones:**
 -   **Salida:** Imprimir el mensaje correspondiente a la categoría.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -604,17 +601,18 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
-
 ---
 
 ## Fórmulas Geométricas
 
 (ej_b1_c01_12)=
 ### Ejercicio 1.01.12 - Área de Triángulo (Base y Altura) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_12
 
 Calcular el área de un triángulo a partir de las longitudes de su base y su
 altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
@@ -624,7 +622,7 @@ altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 -   **Proceso:** Aplicar la fórmula matemática directamente. En C, esto se calcula como `(base * altura) / 2.0`.
 -   **Salida:** Mostrar el área calculada.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -644,13 +642,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_13)=
+:::(ej_b1_c01_13)=
 ### Ejercicio 1.01.13 - Área de Triángulo (Fórmula de Herón) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_13
 
 Calcular el área de un triángulo conociendo únicamente la longitud de sus tres
 lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
@@ -660,7 +658,7 @@ lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
 -   **Proceso:**
 -   **Validación:** Antes de calcular, es importante verificar si los lados
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -681,13 +679,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_14)=
+:::(ej_b1_c01_14)=
 ### Ejercicio 1.01.14 - Círculo ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_14
 
 Calcular el área y la circunferencia (perímetro) de un círculo a partir de su
 radio.
@@ -698,7 +696,7 @@ radio.
 -   **Proceso:**
 -   **Salida:** Mostrar ambos resultados de forma clara.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -722,13 +720,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_15)=
+:::(ej_b1_c01_15)=
 ### Ejercicio 1.01.15 - Trapecio ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_15
 
 Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas
 y su altura.
@@ -738,7 +736,7 @@ y su altura.
 -   **Proceso:** Aplicar la fórmula del área del trapecio: $A = \frac{B+b}{2}
 -   **Salida:** Mostrar el área calculada.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -757,13 +755,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_16)=
+:::(ej_b1_c01_16)=
 ### Ejercicio 1.01.16 - Polígono Regular ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_16
 
 Calcular el área de un polígono regular (lados y ángulos iguales) a partir del
 número de lados, la longitud de un lado y la apotema.
@@ -773,7 +771,7 @@ número de lados, la longitud de un lado y la apotema.
 -   **Proceso:**
 -   **Salida:** Mostrar el área calculada.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -793,13 +791,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_17)=
+:::(ej_b1_c01_17)=
 ### Ejercicio 1.01.17 - Rectángulo ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_17
 
 Calcular el área y el perímetro de un rectángulo dadas las longitudes de su
 largo y su ancho.
@@ -809,7 +807,7 @@ largo y su ancho.
 -   **Proceso:**
 -   **Salida:** Mostrar ambos resultados.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -830,17 +828,18 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
-
 ---
 
 ## Conversiones de Unidades
 
 (ej_b1_c01_18)=
 ### Ejercicio 1.01.18 - Temperaturas ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_18
 
 Crear un programa que pueda convertir temperaturas entre las escalas Celsius,
 Fahrenheit y Kelvin.
@@ -853,7 +852,7 @@ Fahrenheit y Kelvin.
     -   **Celsius a Kelvin**: $K = C + 273.15$
 -   **Precisión:** Al trabajar con divisiones como 9/5, es importante usar
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo) para celsius a fahrenheit.
 :class: dropdown
@@ -872,13 +871,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) para celsius a fahrenheit. -->
 
-(ej_b1_c01_19)=
+:::(ej_b1_c01_19)=
 ### Ejercicio 1.01.19 - Ángulos a Segundos ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_19
 
 Convertir una medida de ángulo dada en formato sexagesimal (grados, minutos y
 segundos) a su valor total equivalente en segundos.
@@ -889,7 +888,7 @@ segundos) a su valor total equivalente en segundos.
 -   **Proceso:** Aplicar la fórmula de conversión: $total = (grados \times 3600)
 -   **Salida:** Mostrar el total de segundos.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -908,11 +907,9 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
+
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
-
 ---
 
 ## Control de Flujo Avanzado
@@ -924,7 +921,7 @@ FIN
 :label: ej_b1_c01_20_tabla_multiplicar
 
 Implementá una función pura que genere los primeros $n$ múltiplos de una base dada (del 1 al $n$):
-````{code-block} c
+```{code-block} c
 void generar_tabla_multiplicar(int base, int *salida, size_t n);
 ```
 donde `salida[i]` almacenará el valor `base * (i + 1)`.
@@ -938,7 +935,8 @@ donde `salida[i]` almacenará el valor `base * (i + 1)`.
 - **Precondiciones:** Si $n > 0$, `salida != NULL`.
 - **Postcondiciones:** Cada posición $i \in [0, n-1]$ contiene `base * (i + 1)`.
 
-#### Tabla de Vectores de Prueba
+```{table} Vectores de Prueba - Generación de Tabla de Multiplicar
+:align: center
 
 | Tipo de Caso | Base | Cantidad $n$ | Salida Esperada | Justificación Técnica |
 | :--- | :--- | :--- | :--- | :--- |
@@ -946,10 +944,10 @@ donde `salida[i]` almacenará el valor `base * (i + 1)`.
 | **Normal (Negativo)** | `-4` | `3` | `{-4, -8, -12}` | Preservación del signo negativo |
 | **Borde (Cero)** | `0` | `4` | `{0, 0, 0, 0}` | Propiedad del elemento absorbente |
 | **Borde (Vacío)** | `9` | `0` | Sin modificaciones | Tamaño cero no ejecuta escrituras |
-
+```
 :::
 
-::::{solution} ej_b1_c01_20_tabla_multiplicar
+:::{solution} ej_b1_c01_20_tabla_multiplicar
 :class: dropdown
 
 ```{code-block} c
@@ -995,18 +993,14 @@ int main(void)
     return 0;
 }
 ```
-
-::::
-<!-- {solution} ej_b1_c01_20_tabla_multiplicar -->
-
-(ej_b1_c01_21)=
+:::(ej_b1_c01_21)=
 ### Ejercicio 1.01.21 - Conjetura de Collatz y Trayectorias ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej_b1_c01_21_collatz
 
 Implementá una función pura que calcule la trayectoria de la conjetura de Collatz (ó secuencia $3n + 1$) para un valor inicial $n \ge 1$:
-````{code-block} c
+```{code-block} c
 size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salida, size_t cap_max);
 ```
 
@@ -1028,7 +1022,8 @@ size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salid
 - **Precondiciones:** `n >= 0`. Si `salida != NULL`, debe apuntar a un bloque con capacidad para al menos `cap_max` elementos de tipo `unsigned long long`.
 - **Postcondiciones:** Retorna la cantidad de términos de la secuencia calculados/almacenados. `salida` contiene los términos en orden cronológico.
 
-#### Tabla de Vectores de Prueba
+```{table} Vectores de Prueba - Conjetura de Collatz y Trayectorias
+:align: center
 
 | Caso | $n$ inicial | `salida` | `cap_max` | Retorno | Salida Generada | Justificación |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -1037,10 +1032,10 @@ size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salid
 | **Normal ($n=6$)** | `6` | `buf` | `20` | `9` | `{6, 3, 10, 5, 16, 8, 4, 2, 1}` | Trayectoria completa de 9 términos |
 | **Modo Conteo** | `6` | `NULL` | `0` | `9` | - | Conteo puro sin buffer |
 | **Capacidad Parcial** | `6` | `buf` | `4` | `4` | `{6, 3, 10, 5}` | Truncamiento defensivo por `cap_max` |
-
+```
 :::
 
-::::{solution} ej_b1_c01_21_collatz
+:::{solution} ej_b1_c01_21_collatz
 :class: dropdown
 
 ```{code-block} c
@@ -1136,12 +1131,11 @@ int main(void)
     return 0;
 }
 ```
-
-::::
-<!-- {solution} ej_b1_c01_21_collatz -->
-
-(ej_b1_c01_22)=
+:::(ej_b1_c01_22)=
 ### Ejercicio 1.01.22 - Calculadora Básica ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_22
 
 Crear un programa que funcione como una calculadora simple. Debe solicitar al
 usuario dos números y un carácter que represente la operación aritmética a
@@ -1153,7 +1147,7 @@ realizar (+, -, *, /).
 -   **Caso Especial:** Manejar la división por cero. Si el operador es `/` y el divisor es 0, informar error al usuario.
 -   **Salida:** Mostrar el resultado de la operación o el mensaje de error.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1186,13 +1180,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_23)=
+:::(ej_b1_c01_23)=
 ### Ejercicio 1.01.23 - Adivina el Número ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_23
 
 Desarrollar un juego simple donde el programa genera un número secreto aleatorio
 y el usuario debe adivinarlo. El programa proporciona pistas para guiar al
@@ -1204,7 +1198,7 @@ usuario.
 -   **Entrada:** Dentro del lazo, solicitar al usuario que ingrese su intento.
 -   **Condiciones:** Comparar el intento con el número secreto y dar una pista:
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1231,13 +1225,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_24)=
+:::(ej_b1_c01_24)=
 ### Ejercicio 1.01.24 - Serie de Fibonacci (Iterativa) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_24
 
 Generar y mostrar los primeros `n` términos de la serie de Fibonacci. En esta
 serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
@@ -1247,7 +1241,7 @@ serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 -   **Casos Base:** Los primeros dos términos (para n=0 y n=1) son fijos (0 y 1 respectivamente).
 -   **Proceso:**
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1275,13 +1269,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_25)=
+:::(ej_b1_c01_25)=
 ### Ejercicio 1.01.25 - Cálculo de Interés Simple ⭐☆☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_25
 
 Implementar una función que calcule el monto final y el interés simple ganado a
 partir de un capital inicial, una tasa de interés anual y un período de tiempo
@@ -1292,7 +1286,7 @@ en años.
 -   **Proceso:**
 -   **Salida:** Mostrar tanto el interés ganado como el monto total acumulado.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1316,13 +1310,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_26)=
+:::(ej_b1_c01_26)=
 ### Ejercicio 1.01.26 - Índice de Masa Corporal (IMC) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_26
 
 Escribir un programa que calcule el Índice de Masa Corporal (IMC) de una persona
 y lo clasifique según las categorías de la OMS.
@@ -1337,7 +1331,7 @@ y lo clasifique según las categorías de la OMS.
     -   IMC >= 30: Obesidad
 -   **Salida:** Mostrar el valor del IMC y la categoría de peso correspondiente.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1366,13 +1360,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_27)=
+:::(ej_b1_c01_27)=
 ### Ejercicio 1.01.27 - Días del Mes ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_27
 
 Crear un programa que, dado un mes (como número del 1 al 12) y un año, determine
 y muestre cuántos días tiene ese mes. Este ejercicio requiere manejar el caso
@@ -1384,7 +1378,7 @@ especial de febrero en los años bisiestos.
 -   **Año Bisiesto:** Un año es bisiesto si es divisible por 4, excepto los años
 -   **Salida:** Imprimir el número de días.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1418,13 +1412,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_28)=
+:::(ej_b1_c01_28)=
 ### Ejercicio 1.01.28 - Máximo de Tres Números ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_28
 
 El objetivo es encontrar el valor más grande entre tres números enteros
 proporcionados por el usuario. Este ejercicio se centra en el uso de
@@ -1439,7 +1433,7 @@ múltiples.
         -   `SINO c es el máximo.`
 -   **Salida:** Imprimir el número que resultó ser el mayor.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1464,13 +1458,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_29)=
+:::(ej_b1_c01_29)=
 ### Ejercicio 1.01.29 - Clasificación de Triángulo ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_29
 
 Dados los largos de tres lados, el programa debe determinar si pueden formar un
 triángulo válido y, en caso afirmativo, clasificarlo como equilátero (todos los
@@ -1482,7 +1476,7 @@ diferentes).
 -   **Validación (Desigualdad Triangular):** Antes de clasificar, es crucial
 -   **Clasificación:**
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1508,13 +1502,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_30)=
+:::(ej_b1_c01_30)=
 ### Ejercicio 1.01.30 - Desglose de Billetes ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_30
 
 Dado un monto de dinero entero, el programa debe calcular la cantidad mínima de
 billetes de distintas denominaciones para representar dicho monto.
@@ -1524,7 +1518,7 @@ billetes de distintas denominaciones para representar dicho monto.
 -   **Denominaciones:** Definir las denominaciones de billetes disponibles en un arreglo o mediante divisiones enteras sucesivas.
 -   **Proceso:** Utilizar divisiones y el operador módulo para calcular cuántos
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1550,13 +1544,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_31)=
+:::(ej_b1_c01_31)=
 ### Ejercicio 1.01.31 - Piedra, Papel o Tijera ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_31
 
 Implementar el clásico juego de Piedra, Papel o Tijera para que un usuario
 juegue una partida contra la computadora.
@@ -1570,7 +1564,7 @@ juegue una partida contra la computadora.
     -   Papel vence a Piedra.
 -   **Proceso:** Comparar la elección del usuario con la de la computadora
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1598,13 +1592,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_32)=
+:::(ej_b1_c01_32)=
 ### Ejercicio 1.01.32 - Patrón de Pirámide ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_32
 
 Implementar un programa que pida un número `n` e imprima un triángulo de `n`
 filas de altura, construido con asteriscos, centrado como una pirámide.
@@ -1616,7 +1610,7 @@ filas de altura, construido con asteriscos, centrado como una pirámide.
         -   El segundo lazo interior imprime los asteriscos. En la fila `i`, se imprimen `2 * i - 1` asteriscos.
 -   **Salida:** Después de cada fila, imprimir un salto de línea.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1643,13 +1637,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_33)=
+:::(ej_b1_c01_33)=
 ### Ejercicio 1.01.33 - Validación de Contraseña Simple ⭐☆☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_33
 
 Crear un programa que solicite una contraseña al usuario y no le permita
 continuar hasta que ingrese la contraseña correcta. Este ejercicio practica el
@@ -1661,7 +1655,7 @@ uso de lazos `do-while` y la comparación de cadenas.
 -   **Proceso:** Usar un lazo `do-while` es ideal aquí, ya que la solicitud debe
 -   **Comparación de Cadenas:** En C, las cadenas no se pueden comparar con `==`; se debe utilizar la función `strcmp()`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1684,13 +1678,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_34)=
+:::(ej_b1_c01_34)=
 ### Ejercicio 1.01.34 - Cajero Automático (Menú) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_34
 
 Simular la interfaz de un menú de cajero automático. El programa debe mostrar
 una lista de opciones y ejecutar una acción simple según la elección del
@@ -1703,7 +1697,7 @@ usuario, repitiendo el proceso hasta que el usuario decida salir.
 -   **Entrada:** Leer la opción del usuario.
 -   **Selección:** Usar una estructura `switch` para manejar las diferentes
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1743,13 +1737,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_35)=
+:::(ej_b1_c01_35)=
 ### Ejercicio 1.01.35 - Patrón de Rombo ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_35
 
 Implementar un programa que pida un número impar `n` e imprima un rombo de
 asteriscos de `n` filas de altura.
@@ -1759,7 +1753,7 @@ asteriscos de `n` filas de altura.
 -   **Entrada:** Leer un entero impar `n`.
 -   **Proceso:**
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1782,13 +1776,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_36)=
+:::(ej_b1_c01_36)=
 ### Ejercicio 1.01.36 - Promedio de N Números ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_36
 
 Escribir un programa que sea flexible en la cantidad de números a promediar.
 Primero debe preguntar al usuario cuántos números va a ingresar y luego calcular
@@ -1800,7 +1794,7 @@ el promedio de esa cantidad de números.
 -   **Proceso:**
 -   **Salida:** Mostrar el promedio calculado.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1830,13 +1824,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_37)=
+:::(ej_b1_c01_37)=
 ### Ejercicio 1.01.37 - Contador de Dígitos ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_37
 
 Crear una función que reciba un número entero y devuelva la cantidad de dígitos
 que lo componen.
@@ -1846,7 +1840,7 @@ que lo componen.
 -   **Proceso:** La forma más simple es usar la división entera por 10
 -   **Caso Especial:** Si el número de entrada es 0, tiene 1 dígito. El lazo
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1876,13 +1870,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_38)=
+:::(ej_b1_c01_38)=
 ### Ejercicio 1.01.38 - Invertir un Número Entero ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_38
 
 Implementar una función que tome un número entero y devuelva otro número con los
 dígitos en orden inverso.
@@ -1892,7 +1886,7 @@ dígitos en orden inverso.
 -   **Proceso:** Se puede construir el número invertido dígito por dígito.
 -   **Salida:** Devolver el número `invertido`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1915,13 +1909,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_39)=
+:::(ej_b1_c01_39)=
 ### Ejercicio 1.01.39 - Potencia con Lazos ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_39
 
 Escribir una función que calcule `base^exponente` sin usar la función `pow()` de
 la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
@@ -1932,7 +1926,7 @@ la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 -   **Proceso:**
 -   **Salida:** Devolver el `resultado`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1953,13 +1947,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_40)=
+:::(ej_b1_c01_40)=
 ### Ejercicio 1.01.40 - Menú de Conversiones ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_40
 
 Crear un programa robusto que presente al usuario un menú con varias opciones de
 conversión de unidades (ej. Celsius a Fahrenheit, Metros a Pies, Kilogramos a
@@ -1970,7 +1964,7 @@ de salir.
 -   **Proceso:** Similar al ejercicio del cajero automático. Usar un lazo
 -   **Modularidad:** Es una buena práctica crear una función separada para cada
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1996,13 +1990,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_41)=
+:::(ej_b1_c01_41)=
 ### Ejercicio 1.01.41 - Validación de Fecha ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_41
 
 Crear una función que valide si una combinación de día, mes y año corresponde a
 una fecha real en el calendario gregoriano.
@@ -2012,7 +2006,7 @@ una fecha real en el calendario gregoriano.
 -   **Proceso:** Realizar una serie de verificaciones en orden lógico:
 -   **Salida:** Devolver un valor booleano (`true` si es válida, `false` si no).
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -2039,13 +2033,13 @@ INICIO
 FIN FUNCION
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_42)=
+:::(ej_b1_c01_42)=
 ### Ejercicio 1.01.42 - Dibujar un Cuadrado Hueco ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_42
 
 Pedir al usuario un número `n` y dibujar el contorno de un cuadrado de `n x n`
 utilizando asteriscos. El interior del cuadrado debe estar vacío.
@@ -2058,7 +2052,7 @@ utilizando asteriscos. El interior del cuadrado debe estar vacío.
     -   Es la primera o la última columna (`columna == 1` o `columna == n`).
 -   En cualquier otro caso, se imprime un espacio.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -2082,13 +2076,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_43)=
+:::(ej_b1_c01_43)=
 ### Ejercicio 1.01.43 - Suma Separada de Pares e Impares ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_43
 
 Dado un rango de números `[n, m]`, el programa debe calcular la suma de todos
 los números pares y la suma de todos los números impares de forma independiente
@@ -2100,7 +2094,7 @@ y mostrar ambos resultados.
 -   **Proceso:**
 -   **Salida:** Mostrar los valores finales de ambas sumas.
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -2127,13 +2121,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_44)=
+:::(ej_b1_c01_44)=
 ### Ejercicio 1.01.44 - Número de la Suerte ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_44
 
 Un número de la suerte es un entero con una cantidad par de dígitos, donde la
 suma de los dígitos de la primera mitad es igual a la suma de los dígitos de la
@@ -2143,7 +2137,7 @@ segunda mitad. El programa debe verificar si un número dado es de la suerte.
 -   **Entrada:** Leer un número entero.
 -   **Proceso:**
 :::
-<!-- {hint} Lógica y Consideraciones -->
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -2183,13 +2177,13 @@ INICIO
 FIN
 
 ```
-<!-- {code-block} pseudocode -->
 
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
-(ej_b1_c01_45)=
-## Ejercicio 1.01.45 - Hola Mundo Personalizado ⭐☆☆☆☆
+:::(ej_b1_c01_45)=
+### Ejercicio 1.01.45 - Hola Mundo Personalizado ⭐☆☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_45
 
 Escribí un programa que solicite tu nombre y te salude personalmente.
 
@@ -2204,11 +2198,14 @@ Ingresá tu nombre: Juan
 - Usá `printf()` para mostrar mensajes
 - Usá `scanf()` para leer el nombre (máximo 50 caracteres)
 - Recordá incluir `<stdio.h>`
-
+:::
 ---
 
 (ej_b1_c01_46)=
-## Ejercicio 1.01.46 - Calculadora Simple ⭐⭐☆☆☆
+### Ejercicio 1.01.46 - Calculadora Simple ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_46
 
 Escribí un programa que lea dos números enteros y muestre su suma, resta,
 producto y división.
@@ -2229,11 +2226,14 @@ División: 3.33
 - Para la división con decimales, convertí al menos uno de los operandos a
   `double`
 - Usá `%.2f` para mostrar dos decimales
-
+:::
 ---
 
 (ej_b1_c01_47)=
-## Ejercicio 1.01.47 - Conversor de Temperatura ⭐⭐☆☆☆
+### Ejercicio 1.01.47 - Conversor de Temperatura ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_47
 
 Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 
@@ -2245,11 +2245,14 @@ Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 - Usá `double` para almacenar temperaturas
 - Aplicá las fórmulas de conversión
 - Mostrá resultados con dos decimales
-
+:::
 ---
 
 (ej_b1_c01_48)=
-## Ejercicio 1.01.48 - Área y Perímetro ⭐⭐☆☆☆
+### Ejercicio 1.01.48 - Área y Perímetro ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_48
 
 Escribí un programa que calcule el área y perímetro de un rectángulo dados su
 ancho y alto.
@@ -2259,11 +2262,14 @@ ancho y alto.
 - Perímetro = 2 × (ancho + alto)
 - Usá `double` para las medidas
 - Verificá que ancho y alto sean positivos
-
+:::
 ---
 
 (ej_b1_c01_49)=
-## Ejercicio 1.01.49 - Promedio de Tres Números ⭐⭐☆☆☆
+### Ejercicio 1.01.49 - Promedio de Tres Números ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_49
 
 Calculá el promedio de tres números decimales ingresados por el usuario.
 
@@ -2271,11 +2277,14 @@ Calculá el promedio de tres números decimales ingresados por el usuario.
 - Leé tres números con `scanf("%lf", ...)`
 - Promedio = (a + b + c) / 3.0
 - Mostrá el resultado con dos decimales
-
+:::
 ---
 
 (ej_b1_c01_50)=
-## Ejercicio 1.01.50 - Intercambio de Variables ⭐⭐☆☆☆
+### Ejercicio 1.01.50 - Intercambio de Variables ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_50
 
 Leé dos números enteros y mostralos intercambiados (sin usar una tercera
 variable).
@@ -2296,11 +2305,14 @@ b = 5
   - `b = a - b;`
   - `a = a - b;`
 - Verificá el resultado imprimiendo antes y después del intercambio
-
+:::
 ---
 
 (ej_b1_c01_51)=
-## Ejercicio 1.01.51 - Conversión de Unidades ⭐⭐☆☆☆
+### Ejercicio 1.01.51 - Conversión de Unidades ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_51
 
 Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 
@@ -2308,11 +2320,14 @@ Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 - 1 metro = 0.001 km = 100 cm = 1000 mm
 - Usá constantes para los factores de conversión
 - Mostrá todas las conversiones
-
+:::
 ---
 
 (ej_b1_c01_52)=
-## Ejercicio 1.01.52 - Cálculo de IMC ⭐⭐⭐☆☆
+### Ejercicio 1.01.52 - Cálculo de IMC ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_52
 
 Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 
@@ -2322,11 +2337,14 @@ Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 - Verificá que altura sea mayor que 0
 - Mostrá el IMC con dos decimales
 - Opcionalmente, mostrá la categoría (bajo peso, normal, sobrepeso)
-
+:::
 ---
 
 (ej_b1_c01_53)=
-## Ejercicio 1.01.53 - Cantidad de Billetes ⭐⭐⭐☆☆
+### Ejercicio 1.01.53 - Cantidad de Billetes ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_53
 
 Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000,
 500, 200, 100, 50, 20, 10) se necesitan.
@@ -2348,11 +2366,14 @@ Monto: 1780
 - Usá división entera y módulo
 - Empezá por el billete más grande
 - Restá el valor usado del monto
-
+:::
 ---
 
 (ej_b1_c01_54)=
-## Ejercicio 1.01.54 - Segundos a Horas, Minutos y Segundos ⭐⭐⭐☆☆
+### Ejercicio 1.01.54 - Segundos a Horas, Minutos y Segundos ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_54
 
 Convertí una cantidad de segundos a formato HH:MM:SS.
 
@@ -2368,11 +2389,14 @@ Resultado: 1:01:05
 - Minutos = (segundos % 3600) / 60
 - Segundos restantes = segundos % 60
 - Mostrá con formato `printf("%d:%02d:%02d", h, m, s)`
-
+:::
 ---
 
 (ej_b1_c01_55)=
-## Ejercicio 1.01.55 - Dígitos de un Número ⭐⭐⭐☆☆
+### Ejercicio 1.01.55 - Dígitos de un Número ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_55
 
 Leé un número de tres dígitos y mostrá cada dígito por separado.
 
@@ -2389,11 +2413,14 @@ Unidades: 7
 - Centenas = numero / 100
 - Decenas = (numero / 10) % 10
 - Unidades = numero % 10
-
+:::
 ---
 
 (ej_b1_c01_56)=
-## Ejercicio 1.01.56 - Precio con Descuento ⭐⭐⭐☆☆
+### Ejercicio 1.01.56 - Precio con Descuento ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b1_c01_56
 
 Calculá el precio final de un producto aplicando un descuento porcentual.
 
@@ -2409,11 +2436,14 @@ Precio final: 850.00
 - Descuento = precio × (porcentaje / 100.0)
 - Precio final = precio - descuento
 - Mostrá ambos valores
-
+:::
 ---
 
 (ej_b1_c01_57)=
-## Ejercicio 1.01.57 - División Entera y Resto ⭐⭐☆☆☆
+### Ejercicio 1.01.57 - División Entera y Resto ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b1_c01_57
 
 Leé dos números enteros `dividendo` y `divisor`. Mostrá el cociente entero, el
 resto de la división (módulo) y el resultado de la división real (con decimales).
@@ -2422,11 +2452,14 @@ resto de la división (módulo) y el resultado de la división real (con decimal
 - Verificá que el divisor sea distinto de cero antes de realizar la operación
 - Usá `/` para la división entera y `%` para el resto
 - Convertí uno de los operandos a `double` mediante `(double)` para obtener el cociente con decimales
-
+:::
 ---
 
 (ej_b1_c01_58)=
-## Ejercicio 1.01.58 - Conversión de Base ⭐⭐⭐⭐☆
+### Ejercicio 1.01.58 - Conversión de Base ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b1_c01_58
 
 Convertí un número decimal a binario, octal y hexadecimal.
 
@@ -2434,11 +2467,14 @@ Convertí un número decimal a binario, octal y hexadecimal.
 - Usá especificadores de formato: `%d`, `%o`, `%x`
 - Mostrá el número en las cuatro bases
 - Opcionalmente, implementá conversión manual con divisiones sucesivas
-
+:::
 ---
 
 (ej_b1_c01_59)=
-## Ejercicio 1.01.59 - Área de Triángulo (Herón) ⭐⭐⭐⭐☆
+### Ejercicio 1.01.59 - Área de Triángulo (Herón) ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b1_c01_59
 
 Calculá el área de un triángulo usando la fórmula de Herón dados los tres lados.
 
@@ -2450,11 +2486,14 @@ Calculá el área de un triángulo usando la fórmula de Herón dados los tres l
 - Verificá que los lados formen un triángulo válido (a + b > c, etc.)
 - Usá `sqrt()` de `<math.h>`
 - Compilá con `-lm` para enlazar la biblioteca matemática
-
+:::
 ---
 
 (ej_b1_c01_60)=
-## Ejercicio 1.01.60 - Ecuación Cuadrática ⭐⭐⭐⭐☆
+### Ejercicio 1.01.60 - Ecuación Cuadrática ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b1_c01_60
 
 Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces reales si
 existen.
@@ -2465,11 +2504,14 @@ existen.
 - Si Δ = 0: una raíz: x = -b / (2a)
 - Si Δ > 0: dos raíces: x = (-b ± √Δ) / (2a)
 - Usá `sqrt()` de `<math.h>`
-
+:::
 ---
 
 (ej_b1_c01_61)=
-## Ejercicio 1.01.61 - Interés Compuesto ⭐⭐⭐⭐☆
+### Ejercicio 1.01.61 - Interés Compuesto ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b1_c01_61
 
 Calculá el monto final de una inversión con interés compuesto.
 
@@ -2485,11 +2527,14 @@ Donde:
 - Usá `pow()` de `<math.h>`
 - Mostrá el monto inicial, final y la ganancia
 - Compilá con `-lm`
-
+:::
 ---
 
 (ej_b1_c01_62)=
-## Ejercicio 1.01.62 - Conversión RGB a Hexadecimal ⭐⭐⭐⭐☆
+### Ejercicio 1.01.62 - Conversión RGB a Hexadecimal ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b1_c01_62
 
 Convertí un color RGB (rojo, verde, azul) a su representación hexadecimal.
 
@@ -2506,11 +2551,14 @@ Hexadecimal: #FF7F50
 - Verificá que cada valor esté en rango 0-255
 - Usá `printf("%02X", valor)` para formato hexadecimal
 - Combiná los tres valores en formato #RRGGBB
-
+:::
 ---
 
 (ej_b1_c01_63)=
-## Ejercicio 1.01.63 - Cálculo de Potencia (sin pow) ⭐⭐⭐⭐⭐
+### Ejercicio 1.01.63 - Cálculo de Potencia (sin pow) ⭐⭐⭐⭐⭐
+
+:::{exercise}
+:label: ej_b1_c01_63
 
 Calculá base^exponente usando solo multiplicaciones (exponente entero positivo).
 
@@ -2520,11 +2568,14 @@ Calculá base^exponente usando solo multiplicaciones (exponente entero positivo)
 - Considerá el caso especial cuando exponente = 0 (resultado = 1)
 - **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones
   repetidas en línea
-
+:::
 ---
 
 (ej_b1_c01_64)=
-## Ejercicio 1.01.64 - Calculadora Científica Básica ⭐⭐⭐⭐⭐
+### Ejercicio 1.01.64 - Calculadora Científica Básica ⭐⭐⭐⭐⭐
+
+:::{exercise}
+:label: ej_b1_c01_64
 
 Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrada,
 seno, coseno, tangente, logaritmo.
@@ -2537,7 +2588,7 @@ seno, coseno, tangente, logaritmo.
 - Recordá que funciones trigonométricas usan radianes
 - Verificá casos especiales (raíz de negativo, log de 0 o negativo, etc.)
 - Compilá con `-lm`
-
+:::
 ---
 
 ## Notas Finales
