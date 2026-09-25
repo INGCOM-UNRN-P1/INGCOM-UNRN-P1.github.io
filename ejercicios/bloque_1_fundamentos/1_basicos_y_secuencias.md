@@ -41,10 +41,19 @@ Para compilar y verificar las soluciones de este módulo bajo el estándar C11 e
 :label: ej_b1_c01_01_cuenta_regresiva
 
 Implementá una función pura que calcule la cantidad de pasos de una cuenta regresiva desde $N$ hasta $1$ y la suma acumulada de los valores emitidos:
-- `int calcular_pasos_regresiva(int n)`: retorna la cantidad de números emitidos si $n \ge 1$, o `0` si $n \le 0$.
-- `long long suma_cuenta_regresiva(int n)`: retorna la suma de los enteros de $1$ a $n$, o `0` si $n \le 0$.
 
-**Tabla de Vectores de Prueba:**
+```{code-block} c
+int calcular_pasos_regresiva(int n)
+```
+Retorna la cantidad de números emitidos si $n \ge 1$, o `0` si $n \le 0$.
+
+```{code-block} c
+long long suma_cuenta_regresiva(int n)
+```
+Retorna la suma de los enteros de $1$ a $n$, o `0` si $n \le 0$.
+
+```{table} Vectores de prueba - Cuenta regresiva
+:align: center
 
 | Caso de Prueba | Valor $N$ | Pasos Retornados | Suma Acumulada |
 | :--- | :--- | :--- | :--- |
@@ -53,8 +62,38 @@ Implementá una función pura que calcule la cantidad de pasos de una cuenta reg
 | Nulo | `0` | `0` | `0` |
 | Negativo | `-4` | `0` | `0` |
 
-::::{solution}
-```c
+```
+:::
+
+:::{tip} Ayuda (pseudocódigo)
+:class: dropdown
+
+```{code-block} pseudocode
+:linenos:
+ALGORITMO cuenta_regresiva
+ENTRADA: numero_inicio (entero)
+
+INICIO
+    PARA i DESDE numero_inicio HASTA 1 CON PASO -1 HACER
+        ESCRIBIR i, "..."
+        ESPERAR 1 segundo
+    FIN PARA
+
+    ESCRIBIR "¡Lanzamiento!"
+FIN
+
+```
+<!-- {code-block} pseudocode -->
+
+:::
+<!-- {tip} Ayuda (pseudocódigo) -->
+
+:::{solution} ej_b1_c01_01_cuenta_regresiva
+:class: dropdown
+
+```{code-block} c
+:linenos:
+
 #include <stdio.h>
 #include <assert.h>
 
@@ -94,33 +133,16 @@ int main(void) {
     return 0;
 }
 ```
-::::
 :::
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-ALGORITMO cuenta_regresiva
-ENTRADA: numero_inicio (entero)
 
-INICIO
-    PARA i DESDE numero_inicio HASTA 1 CON PASO -1 HACER
-        ESCRIBIR i, "..."
-        ESPERAR 1 segundo
-    FIN PARA
 
-    ESCRIBIR "¡Lanzamiento!"
-FIN
-
-```
-<!-- {code-block} pseudocode -->
-
-:::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b1_c01_02)=
 ### Ejercicio 1.01.02 - ¡Hola mundo! ⭐⭐☆☆☆
+
+::::{exercise}
+:label: ej_b1_c01_02_hola_mundo
 
 El "Hola, mundo!" es el primer paso tradicional en el aprendizaje de un nuevo
 lenguaje de programación. El objetivo es escribir el programa más simple posible
@@ -150,10 +172,15 @@ FIN
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
 
+::::
+
 (ej_b1_c01_03)=
 ### Ejercicio 1.01.03 - Saludador ⭐⭐☆☆☆
 
-Este ejercicio amplía el "Hola, mundo!" para que el programa interactúe con el
+::::{exercise}
+:label: ej_b1_c01_03_saludador
+
+Este ejercicio amplía el "Hola, mundo!", para que el programa interactúe con el
 usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que
 lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 
@@ -187,6 +214,7 @@ FIN
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
 
+::::
 ---
 
 ## Rangos y Secuencias
@@ -194,18 +222,20 @@ FIN
 (ej_b1_c01_04)=
 ### Ejercicio 1.01.04 - Pares en un rango ⭐⭐☆☆☆
 
-:::{exercise}
+::::{exercise}
 :label: ej_b1_c01_04_pares_rango
 
 Implementá una función que cuente cuántos números pares existen en un intervalo cerrado `[inicio, fin]`:
 - Si `inicio > fin`, la función debe intercambiar los límites o procesar el rango ordenado.
 - Retorna la cantidad de enteros pares presentes en el intervalo.
 
-```c
+````{code-block} c
+:linenos:
 int contar_pares_en_rango(int inicio, int fin);
 ```
 
 **Tabla de Vectores de Prueba:**
+:::{table}
 
 | Caso de Prueba | Rango `[inicio, fin]` | Retorno Esperado | Justificación |
 | :--- | :--- | :--- | :--- |
@@ -214,9 +244,13 @@ int contar_pares_en_rango(int inicio, int fin);
 | Límites invertidos | `[10, 1]` | `5` | Mismo intervalo ordenado |
 | Intervalo degenerado impar | `[3, 3]` | `0` | Sin pares |
 | Intervalo degenerado par | `[4, 4]` | `1` | Solo el número 4 |
+:::
+
+::::
 
 ::::{solution}
-```c
+````{code-block} c
+:linenos:
 #include <stdio.h>
 #include <assert.h>
 
@@ -260,7 +294,7 @@ Implementá una función que calcule la suma acumulada de los primeros $N$ núme
 - Recordá la propiedad matemática: $\sum_{k=1}^N (2k-1) = N^2$.
 - Si $N \le 0$, retorna `0`.
 
-```c
+````{code-block} c
 long long suma_primeros_n_impares(int n);
 ```
 
@@ -275,7 +309,8 @@ long long suma_primeros_n_impares(int n);
 | Negativo | `-5` | `0` | Retorno nulo |
 
 ::::{solution}
-```c
+````{code-block} c
+:linenos:
 #include <stdio.h>
 #include <assert.h>
 
@@ -340,7 +375,7 @@ Implementá una función que calcule la suma acumulada de la secuencia de númer
 - Si $n \ge m$, el intervalo está vacío y la suma debe ser `0LL`.
 - En caso contrario, suma cada valor entero $i$ desde $n$ hasta $m - 1$.
 
-```c
+````{code-block} c
 long long suma_secuencia_ascendente(int n, int m);
 ```
 
@@ -355,7 +390,8 @@ long long suma_secuencia_ascendente(int n, int m);
 | Rango invertido | `[10, 4)` | Ninguno | `0LL` |
 
 ::::{solution}
-```c
+````{code-block} c
+:linenos:
 #include <stdio.h>
 #include <assert.h>
 
@@ -888,7 +924,7 @@ FIN
 :label: ej_b1_c01_20_tabla_multiplicar
 
 Implementá una función pura que genere los primeros $n$ múltiplos de una base dada (del 1 al $n$):
-```c
+````{code-block} c
 void generar_tabla_multiplicar(int base, int *salida, size_t n);
 ```
 donde `salida[i]` almacenará el valor `base * (i + 1)`.
@@ -970,7 +1006,7 @@ int main(void)
 :label: ej_b1_c01_21_collatz
 
 Implementá una función pura que calcule la trayectoria de la conjetura de Collatz (ó secuencia $3n + 1$) para un valor inicial $n \ge 1$:
-```c
+````{code-block} c
 size_t generar_secuencia_collatz(unsigned long long n, unsigned long long *salida, size_t cap_max);
 ```
 
