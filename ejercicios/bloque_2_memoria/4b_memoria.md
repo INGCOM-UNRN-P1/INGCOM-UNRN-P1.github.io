@@ -124,11 +124,17 @@ Implementá una función que detecte empíricamente si la pila (*stack*) crece h
 #include <stdint.h>
 #include <assert.h>
 
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((no_sanitize_address, noinline))
+#endif
 static bool auxiliar_anidado(const int *dir_padre) {
     int var_hija = 0;
     return ((uintptr_t)&var_hija < (uintptr_t)dir_padre);
 }
 
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((no_sanitize_address, noinline))
+#endif
 bool stack_crece_hacia_abajo(void) {
     int var_padre = 0;
     return auxiliar_anidado(&var_padre);
