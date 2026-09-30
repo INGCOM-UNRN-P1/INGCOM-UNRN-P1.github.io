@@ -34,7 +34,7 @@ La herramienta se ejecuta en entornos Linux/POSIX y requiere Python 3.10+
 gestionado mediante `uv`:
 
 ``` bash
-uv tool install --editable /home/mrtin/dev/tools/scorm-tools
+uv tool install "scorm-tools[ecosistema] @ git+https://github.com/INGCOM-UNRN/scorm-tools"
 ```
 <!-- bash -->
 
