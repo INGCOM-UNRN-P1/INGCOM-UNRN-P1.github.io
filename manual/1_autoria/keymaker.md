@@ -55,28 +55,40 @@ verificá contar con OpenSSL y Python >= 3.11 antes de instalar `keymaker`.
 
 :::{tab-item} Ubuntu / Debian
 
+``` bash
 sudo apt update && sudo apt install -y build-essential libssl-dev python3-pip uv
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} Ubuntu / Debian -->
 
 :::{tab-item} Arch Linux / Manjaro
 
+``` bash
 sudo pacman -S --needed base-devel openssl python-pip uv
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} Arch Linux / Manjaro -->
 
 :::{tab-item} Fedora / RHEL
 
+``` bash
 sudo dnf install -y gcc openssl-devel python3-pip uv
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} Fedora / RHEL -->
 
 :::{tab-item} macOS (Homebrew)
 
+``` bash
 brew install openssl uv
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} macOS (Homebrew) -->
@@ -92,16 +104,22 @@ brew install openssl uv
 
 :::{tab-item} uv tool (Recomendado)
 
+``` bash
 uv tool install . --editable
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} uv tool (Recomendado) -->
 
 :::{tab-item} pip / venv
 
+``` bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} pip / venv -->

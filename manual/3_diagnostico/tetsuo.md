@@ -56,6 +56,8 @@ Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
 :::{tab-item} Ubuntu / Debian
 
+```{code-block} bash
+:linenos:
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -69,11 +71,16 @@ sudo apt update && sudo apt install -y \
     python3-pip \
     python3-venv
 
+```
+<!-- {code-block} bash -->
+
 :::
 <!-- {tab-item} Ubuntu / Debian -->
 
 :::{tab-item} Arch Linux / Manjaro
 
+```{code-block} bash
+:linenos:
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -86,11 +93,16 @@ sudo pacman -S --needed \
     python-pip \
     uv
 
+```
+<!-- {code-block} bash -->
+
 :::
 <!-- {tab-item} Arch Linux / Manjaro -->
 
 :::{tab-item} Fedora / RHEL
 
+```{code-block} bash
+:linenos:
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -102,24 +114,35 @@ sudo dnf install -y \
     graphviz \
     python3-pip
 
+```
+<!-- {code-block} bash -->
+
 :::
 <!-- {tab-item} Fedora / RHEL -->
 
 :::{tab-item} macOS (Homebrew)
 
+``` bash
 brew install gcc gdb clang-format typst graphviz uv
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} macOS (Homebrew) -->
 
 :::{tab-item} Windows (MSYS2 / WSL2)
 
+```{code-block} bash
+:linenos:
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
+
+```
+<!-- {code-block} bash -->
 
 :::
 <!-- {tab-item} Windows (MSYS2 / WSL2) -->
@@ -137,31 +160,40 @@ Podés instalar `tetsuo` mediante cualquiera de los siguientes métodos estánda
 
 :::{tab-item} uv tool (Recomendado)
 
+``` bash
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} uv tool (Recomendado) -->
 
 :::{tab-item} pip / venv
 
+``` bash
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} pip / venv -->
 
 :::{tab-item} pipx
 
+``` bash
 # Instalación global aislada en tu PATH
 pipx install --editable .
+```
+<!-- bash -->
 
 :::
 <!-- {tab-item} pipx -->
