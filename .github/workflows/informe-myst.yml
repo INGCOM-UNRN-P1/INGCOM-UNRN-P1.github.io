@@ -1,0 +1,118 @@
+name: Informe de contenido (myst-tools)
+
+# Informe, no compuerta (N-APUNTE-01): los chequeos de myst-tools corren sobre todo el apunte y
+# dejan los números en el resumen del job y los JSON como artefacto, sin fallar el CI. La meta es
+# bajar los números de un cuatrimestre a otro; cuando un chequeo llegue a cero conviene volverlo
+# bloqueante. Los ejemplos de C incorrectos a propósito se marcan con `:class: fragmento` para
+# que check-c-snippets no los cuente.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.md'
+      - 'myst.yml'
+      - '.github/workflows/informe-myst.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.md'
+      - 'myst.yml'
+      - '.github/workflows/informe-myst.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: informe-myst-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  informe:
+    name: Chequeos de myst-tools (modo informe)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v7
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Instalar myst-tools desde git
+        # Siempre desde el repositorio (no se publica en PyPI). gcc viene en el runner y es lo que
+        # usa check-c-snippets.
+        run: |
+          uv tool install "git+https://github.com/martinvilu/mystmd-tools"
+          myst-tools --version
+
+      - name: Correr los chequeos
+        run: |
+          mkdir -p informe
+          for chequeo in check-c-snippets check-a11y check-tables check-style check-links; do
+            set +e
+            myst-tools "$chequeo" --json > "informe/$chequeo.json" 2> "informe/$chequeo.err"
+            echo "$?" > "informe/$chequeo.exit"
+            set -e
+          done
+
+      - name: Resumen
+        run: |
+          python3 - <<'EOF'
+          import json
+          import os
+          from collections import Counter
+          from pathlib import Path
+
+          chequeos = {
+              "check-c-snippets": "Bloques de C que no compilan",
+              "check-a11y": "Accesibilidad (texto alternativo, encabezados, enlaces)",
+              "check-tables": "Tablas mal formadas",
+              "check-style": "Estilo rioplatense (voseo, spanglish)",
+              "check-links": "Enlaces a GitHub",
+          }
+          filas, detalle = [], []
+          for chequeo, que in chequeos.items():
+              crudo = Path(f"informe/{chequeo}.json").read_text(encoding="utf-8")
+              codigo = Path(f"informe/{chequeo}.exit").read_text().strip()
+              try:
+                  datos = json.loads(crudo)
+              except json.JSONDecodeError:
+                  error = Path(f"informe/{chequeo}.err").read_text(encoding="utf-8").strip().splitlines()
+                  filas.append(f"| `{chequeo}` | {que} | no corrió (código {codigo}): {error[-1] if error else 'sin salida'} |")
+                  continue
+              if chequeo == "check-c-snippets":
+                  problemas = [r for r in datos["resultados"] if not r["valido"]]
+                  cifra = f"{len(problemas)} de {datos['total']} bloques"
+              elif chequeo == "check-a11y":
+                  problemas = datos["hallazgos"]
+                  cifra = f"{datos['errores']} errores y {datos['avisos']} avisos"
+              else:
+                  problemas = datos["hallazgos"]
+                  cifra = f"{datos['total']} hallazgos"
+              filas.append(f"| `{chequeo}` | {que} | {cifra} |")
+              if problemas:
+                  por_archivo = Counter(p["archivo"] for p in problemas).most_common(5)
+                  detalle.append(f"\n**{chequeo}**, los archivos con más hallazgos:\n")
+                  detalle += [f"- `{archivo}`: {cantidad}" for archivo, cantidad in por_archivo]
+          resumen = "\n".join([
+              "## Informe de contenido (myst-tools)",
+              "",
+              "Modo informe: no falla el CI. El detalle completo está en el artefacto `informe-myst`.",
+              "",
+              "| Chequeo | Qué mira | Resultado |",
+              "| :-- | :-- | :-- |",
+              *filas,
+              *detalle,
+          ])
+          print(resumen)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as salida:
+              salida.write(resumen + "\n")
+          EOF
+
+      - name: Guardar el informe
+        uses: actions/upload-artifact@v7
+        with:
+          name: informe-myst
+          path: informe/
+          retention-days: 30
